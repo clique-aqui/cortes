@@ -6,7 +6,7 @@ Roda sozinho no GitHub Actions (veja .github/workflows/cortes.yml).
 
   python main.py checar   -> só diz se tem live agora
   python main.py live     -> fica de olho na live e vai postando (padrão)
-  python main.py teste    -> posta 1 clipe como PRIVADO para testar as chaves
+  python main.py teste    -> posta 1 clipe das últimas 24h como PRIVADO para testar (sem repetir)
 """
 import base64
 import json
@@ -21,11 +21,11 @@ from pathlib import Path
 import requests
 
 # ---------- AJUSTES ----------
-JOGO = "Grand Theft Auto V"
-SO_GTA = True        # ignora clipes de outros jogos
-VIEWS_MIN = 10       # só posta clipe com pelo menos X views
+SO_GTA = True        # só clipes de jogos "Grand Theft Auto" (pega GTA V e GTA VI)
+VIEWS_MIN = 100      # só posta clipe com pelo menos X views
 DURACAO_MIN = 10     # segundos
 MAX_POR_HORA = 3     # limite de Shorts por hora
+MAX_POR_DIA = 12     # limite de Shorts por dia (protege a cota do YouTube)
 JANELA_MIN = 25      # quanto tempo cada execução fica de olho na live
 SONDAGEM = 60        # segundos entre uma olhada e outra na Twitch
 MODELOS = ["gemini-3.8-flash", "gemini-3.6-flash"]  # Gemini grátis, por ordem de preferência
@@ -33,6 +33,10 @@ FONTE = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 POSTADOS = Path("posted.json")
 TMP = Path("tmp")
 STREAMERS = [s.strip().lower() for s in os.environ.get("STREAMERS", "").split(",") if s.strip()]
+
+
+def eh_gta(nome_do_jogo):
+    return "grand theft auto" in (nome_do_jogo or "").lower()
 
 
 # ---------- tempo e estado ----------
@@ -95,15 +99,27 @@ class Twitch:
 
 def ao_vivo(tw):
     """Canais da lista que estão ao vivo (a Twitch só devolve quem está ao vivo)."""
-    vivos = tw.get("streams", user_login=STREAMERS)
-    return [v for v in vivos if v["type"] == "live" and (not SO_GTA or v["game_name"] == JOGO)]
+    vivos = []
+    for i in range(0, len(STREAMERS), 100):  # a Twitch aceita até 100 canais por pedido
+        vivos += tw.get("streams", user_login=STREAMERS[i:i + 100], first=100)
+    return [v for v in vivos if v["type"] == "live" and (not SO_GTA or eh_gta(v["game_name"]))]
+
+
+def so_gta(tw, clipes):
+    """Fica só com os clipes cujo jogo é Grand Theft Auto (V ou VI)."""
+    ids = list({c["game_id"] for c in clipes if c["game_id"]})
+    nomes = {}
+    for i in range(0, len(ids), 100):
+        for g in tw.get("games", id=ids[i:i + 100]):
+            nomes[g["id"]] = g["name"]
+    return [c for c in clipes if eh_gta(nomes.get(c["game_id"], ""))]
 
 
 def repetido(c, estado):
     """Espectadores costumam clipar o mesmo momento várias vezes: posta só um."""
     criado = ler_iso(c["created_at"])
     for postado, criado_outro, canal in estado.values():
-        if postado and canal == c["broadcaster_id"] and \
+        if postado and criado_outro and canal == c["broadcaster_id"] and \
                 abs((criado - ler_iso(criado_outro)).total_seconds()) < 120:
             return True
     return False
@@ -124,8 +140,8 @@ def escolher_clipe(tw, vivos, estado):
     return max(candidatos, key=lambda c: c["view_count"], default=None)
 
 
-def postados_na_ultima_hora(estado):
-    corte = agora() - timedelta(hours=1)
+def postados_desde(estado, horas):
+    corte = agora() - timedelta(hours=horas)
     return sum(1 for postado, _, _ in estado.values() if postado and ler_iso(postado) > corte)
 
 
@@ -222,9 +238,9 @@ def enviar(video, titulo, clipe, privacidade="public"):
         "snippet": {
             "title": f"{titulo} #Shorts"[:100],
             "description": (f"Clipe de {clipe['broadcaster_name']} na Twitch: {clipe['url']}\n\n"
-                            "#Shorts #GTA #GTARP"),
+                            "#Shorts #GTA #GTA6 #GTARP"),
             "categoryId": "20",
-            "tags": ["gta", "gta rp", "clipes", "shorts"],
+            "tags": ["gta", "gta 6", "gta rp", "clipes", "shorts"],
         },
         "status": {"privacyStatus": privacidade, "selfDeclaredMadeForKids": False},
         "paidProductPlacementDetails": {"hasPaidProductPlacement": False},
@@ -268,9 +284,9 @@ def publicar(c, foto, estado, teste=False):
     print("Título:", titulo)
     video_id = enviar(final, ("[TESTE] " if teste else "") + titulo, c, "private" if teste else "public")
     print("Enviado: https://youtube.com/shorts/" + video_id)
-    if not teste:
-        estado[c["id"]] = [iso(agora()), c["created_at"], c["broadcaster_id"]]
-        salvar_estado(estado)
+    # anota sempre (inclusive no teste), para nunca enviar o mesmo clipe duas vezes
+    estado[c["id"]] = [iso(agora()), c["created_at"], c["broadcaster_id"]]
+    salvar_estado(estado)
 
 
 def modo_live():
@@ -291,12 +307,20 @@ def modo_live():
                     break
             else:
                 sem_live = 0
-                if postados_na_ultima_hora(estado) < MAX_POR_HORA:
+                if postados_desde(estado, 24) >= MAX_POR_DIA:
+                    print("Limite diário atingido, parando por hoje.")
+                    break
+                if postados_desde(estado, 1) < MAX_POR_HORA:
                     c = escolher_clipe(tw, vivos, estado)
                     if c:
                         publicar(c, foto, estado)
         except requests.RequestException as e:  # Twitch ou Gemini com soluço: tenta de novo no próximo ciclo
             print("Erro de rede, tentando de novo:", e)
+        except Exception as e:  # erro do YouTube (cota, etc.): não derruba tudo
+            print("Erro ao postar:", e)
+            if "quota" in str(e).lower():
+                print("Cota do YouTube esgotada, parando.")
+                break
         time.sleep(SONDAGEM)
 
 
@@ -314,18 +338,24 @@ def checar():
 
 
 def teste():
+    """Pega o clipe de GTA mais visto das últimas 24h que ainda não foi postado e envia como privado."""
     if not STREAMERS:
         raise SystemExit("Crie a variável STREAMERS com o(s) canal(is) da Twitch, ex.: canal1,canal2")
     tw = Twitch()
     foto = achar_foto()
-    inicio = iso(agora() - timedelta(days=7))
+    estado = carregar_estado()
+    inicio = iso(agora() - timedelta(hours=24))
     candidatos = []
-    for u in tw.get("users", login=STREAMERS):
-        candidatos += tw.get("clips", broadcaster_id=u["id"], started_at=inicio, first=20)
-    candidatos = [c for c in candidatos if c["duration"] >= DURACAO_MIN]
+    for i in range(0, len(STREAMERS), 100):
+        for u in tw.get("users", login=STREAMERS[i:i + 100]):
+            candidatos += tw.get("clips", broadcaster_id=u["id"], started_at=inicio, first=50)
+    candidatos = [c for c in candidatos
+                  if c["duration"] >= DURACAO_MIN and c["id"] not in estado and not repetido(c, estado)]
+    if SO_GTA:
+        candidatos = so_gta(tw, candidatos)
     if not candidatos:
-        raise SystemExit("Nenhum clipe nos últimos 7 dias desses canais.")
-    publicar(max(candidatos, key=lambda c: c["view_count"]), foto, {}, teste=True)
+        raise SystemExit("Nenhum clipe novo de GTA nas últimas 24h desses canais.")
+    publicar(max(candidatos, key=lambda c: c["view_count"]), foto, estado, teste=True)
 
 
 if __name__ == "__main__":
