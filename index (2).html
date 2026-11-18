@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Painel Cortes GTA</title>
+<style>
+  :root {
+    --bg: #0f1117; --card: #181b24; --borda: #272b38; --texto: #e8eaf0; --suave: #9aa1b2;
+    --ok: #2ecc71; --erro: #ff5d5d; --aviso: #f5b942; --azul: #6aa9ff; --destaque: #ff4fa3;
+  }
+  @media (prefers-color-scheme: light) {
+    :root { --bg: #f4f5f9; --card: #ffffff; --borda: #e1e4ee; --texto: #161924; --suave: #5d6578; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--texto);
+         font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .pagina { max-width: 1100px; margin: 0 auto; padding: 24px 16px 48px; }
+  header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; }
+  h1 { margin: 0; font-size: 22px; }
+  h1 span { color: var(--destaque); }
+  h2 { font-size: 16px; margin: 32px 0 12px; }
+  .suave { color: var(--suave); font-size: 13px; }
+  .grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin-top: 16px; }
+  .card { background: var(--card); border: 1px solid var(--borda); border-radius: 12px; padding: 14px 16px; }
+  .card .rotulo { color: var(--suave); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+  .card .valor { font-size: 26px; font-weight: 700; margin-top: 4px; }
+  .card .nota { color: var(--suave); font-size: 12px; margin-top: 2px; }
+  .selo { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 600;
+          border: 1px solid currentColor; }
+  .ok { color: var(--ok); } .erro { color: var(--erro); } .aviso { color: var(--aviso); } .azul { color: var(--azul); }
+  .tabela-box { background: var(--card); border: 1px solid var(--borda); border-radius: 12px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; min-width: 640px; }
+  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--borda); vertical-align: top; }
+  th { color: var(--suave); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; font-weight: 600; }
+  tr:last-child td { border-bottom: 0; }
+  a { color: var(--azul); text-decoration: none; } a:hover { text-decoration: underline; }
+  .vazio { padding: 22px; color: var(--suave); text-align: center; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag { background: var(--card); border: 1px solid var(--borda); border-radius: 999px; padding: 4px 12px;
+         font-size: 13px; cursor: pointer; color: var(--texto); }
+  .tag:hover { border-color: var(--destaque); }
+  button { background: var(--card); color: var(--texto); border: 1px solid var(--borda); border-radius: 8px;
+           padding: 6px 12px; cursor: pointer; font: inherit; }
+  button:hover { border-color: var(--destaque); }
+  .botoes { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  button.principal { background: var(--destaque); border-color: var(--destaque); color: #fff; font-weight: 600; }
+  button.discreto { color: var(--suave); }
+  button:disabled { opacity: .5; cursor: wait; }
+  input[type=password] { flex: 1 1 280px; min-width: 0; padding: 7px 10px; border-radius: 8px; font: inherit;
+          border: 1px solid var(--borda); background: var(--bg); color: var(--texto); }
+  .alerta { margin-top: 16px; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--aviso);
+            color: var(--aviso); display: none; }
+</style>
+</head>
+<body>
+<div class="pagina">
+  <header>
+    <h1>Painel <span>Cortes GTA</span></h1>
+    <div class="suave">Atualiza sozinho a cada 60 s · última leitura: <span id="leitura">–</span>
+      <button id="atualizar" style="margin-left:8px">Atualizar agora</button></div>
+  </header>
+
+  <div class="alerta" id="alerta"></div>
+
+  <h2>Controle</h2>
+  <div class="card" id="controle">
+    <div class="botoes">
+      <button id="btn-rodar" class="principal">Rodar agora</button>
+      <button id="btn-teste">Rodar teste (1 vídeo privado)</button>
+      <button id="btn-token" class="discreto">Token do GitHub</button>
+    </div>
+    <div class="suave" id="msg-controle" style="margin-top:10px">
+      "Rodar agora" inicia o bot na hora. Se ninguém da lista estiver ao vivo em GTA, ele termina logo em seguida.
+    </div>
+    <div id="form-token" style="display:none; margin-top:14px">
+      <div class="botoes">
+        <input type="password" id="campo-token" placeholder="Cole aqui o token (começa com github_pat_)" autocomplete="off">
+        <button id="salvar-token">Salvar</button>
+        <button id="remover-token" class="discreto">Remover</button>
+      </div>
+      <p class="suave" style="margin-bottom:0">
+        O token fica guardado só neste navegador e nunca vai para o repositório. Use um token que dê acesso apenas a este
+        repositório, com a permissão <b>Actions: Read and write</b>, e não salve em computador compartilhado.
+      </p>
+    </div>
+  </div>
+
+  <div class="grade">
+    <div class="card"><div class="rotulo">Bot</div><div class="valor" id="estado">–</div>
+      <div class="nota" id="estado-nota"></div></div>
+    <div class="card"><div class="rotulo">Postados nas últimas 24 h</div><div class="valor" id="n24">–</div>
+      <div class="nota">só vídeos públicos</div></div>
+    <div class="card"><div class="rotulo">Total registrado</div><div class="valor" id="ntotal">–</div>
+      <div class="nota" id="ntotal-nota"></div></div>
+    <div class="card"><div class="rotulo">Último envio</div><div class="valor" id="ultimo" style="font-size:18px">–</div>
+      <div class="nota" id="ultimo-nota"></div></div>
+  </div>
+
+  <h2>Execuções recentes no GitHub Actions</h2>
+  <div class="tabela-box"><table>
+    <thead><tr><th>#</th><th>Início</th><th>Situação</th><th>Origem</th><th></th></tr></thead>
+    <tbody id="execucoes"><tr><td colspan="5" class="vazio">Carregando…</td></tr></tbody>
+  </table></div>
+  <p class="suave">Uma execução "sucesso" sem vídeo novo é normal: significa que não havia live de GTA no momento.</p>
+
+  <h2>Vídeos enviados</h2>
+  <div class="tabela-box"><table>
+    <thead><tr><th>Quando</th><th>Streamer</th><th>Título</th><th>Views (Twitch)</th><th>Links</th></tr></thead>
+    <tbody id="videos"><tr><td colspan="5" class="vazio">Carregando…</td></tr></tbody>
+  </table></div>
+
+  <h2>Streamers com mais cortes</h2>
+  <div class="tags" id="ranking"><span class="suave">Ainda sem dados.</span></div>
+
+  <h2>Hashtags de GTA (clique para copiar)</h2>
+  <div class="tags" id="hashtags"></div>
+  <p class="suave" id="copiado"></p>
+</div>
+
+<script>
+  // Descobre "dono/repositório" pelo endereço do GitHub Pages; se não der, usa o padrão abaixo.
+  const PADRAO = "clique-aqui/cortes";
+  const partes = location.pathname.split("/").filter(Boolean);
+  const REPO = location.hostname.endsWith("github.io") && partes[0]
+    ? location.hostname.split(".")[0] + "/" + partes[0] : PADRAO;
+
+  const HASHTAGS = ["#GTA6", "#GTAVI", "#ViceCity", "#GrandTheftAutoVI", "#Rockstar",
+                    "#GTAV", "#GTA5", "#GTAOnline", "#GTARP", "#GTA", "#Shorts", "#Gaming", "#Twitch", "#Clips", "#Cortes"];
+
+  const $ = id => document.getElementById(id);
+  const fmt = iso => new Date(iso).toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
+  const atras = iso => {
+    const min = Math.round((Date.now() - new Date(iso)) / 60000);
+    if (min < 1) return "agora";
+    if (min < 60) return min + " min atrás";
+    if (min < 1440) return Math.round(min / 60) + " h atrás";
+    return Math.round(min / 1440) + " d atrás";
+  };
+  const el = (tag, texto, cls) => { const e = document.createElement(tag); if (texto != null) e.textContent = texto; if (cls) e.className = cls; return e; };
+  const link = (texto, href) => { const a = el("a", texto); a.href = href; a.target = "_blank"; a.rel = "noopener"; return a; };
+  const vazio = (tbody, cols, msg) => { tbody.replaceChildren(); const tr = el("tr"); const td = el("td", msg, "vazio"); td.colSpan = cols; tr.append(td); tbody.append(tr); };
+
+  async function json(url) {
+    const r = await fetch(url, { cache: "no-store" });
+    if (!r.ok) throw new Error(url + " -> " + r.status);
+    return r.json();
+  }
+
+  async function carregar() {
+    $("leitura").textContent = new Date().toLocaleTimeString("pt-BR");
+    const alerta = $("alerta"); alerta.style.display = "none";
+    const bust = "?t=" + Date.now();
+
+    let historico = [], status = {}, execucoes = [];
+    try { historico = await json("historico.json" + bust); } catch (e) { historico = []; }
+    try { status = await json("status.json" + bust); } catch (e) { status = {}; }
+    try { execucoes = (await json("https://api.github.com/repos/" + REPO + "/actions/runs?per_page=10")).workflow_runs || []; }
+    catch (e) { vazio($("execucoes"), 5, "Não consegui ler as execuções do GitHub agora (limite de consultas). Tente de novo em alguns minutos."); execucoes = null; }
+
+    // --- cartões
+    const publicos = historico.filter(v => v.privacidade === "public");
+    const corte = Date.now() - 24 * 3600 * 1000;
+    $("n24").textContent = publicos.filter(v => new Date(v.quando) > corte).length;
+    $("ntotal").textContent = historico.length;
+    $("ntotal-nota").textContent = (historico.length - publicos.length) + " de teste (privados)";
+    const ult = historico[historico.length - 1];
+    $("ultimo").textContent = ult ? atras(ult.quando) : "nenhum ainda";
+    $("ultimo-nota").textContent = ult ? ult.streamer : "";
+
+    const pausado = status.pausado_ate && new Date(status.pausado_ate) > Date.now();
+    const rodando = execucoes && execucoes.some(r => r.status === "in_progress" || r.status === "queued");
+    const est = $("estado"); est.className = "valor";
+    if (pausado) {
+      est.textContent = "Pausado"; est.classList.add("aviso");
+      $("estado-nota").textContent = "até " + fmt(status.pausado_ate);
+      alerta.textContent = "O bot pausou: " + (status.motivo || "cota do YouTube esgotada") + ". Volta sozinho depois do horário indicado.";
+      alerta.style.display = "block";
+    } else if (execucoes === null) {
+      est.textContent = "?"; $("estado-nota").textContent = "sem leitura do GitHub";
+    } else if (rodando) {
+      est.textContent = "Rodando"; est.classList.add("ok"); $("estado-nota").textContent = "há uma execução em andamento";
+    } else {
+      est.textContent = "Aguardando"; est.classList.add("azul");
+      $("estado-nota").textContent = execucoes[0] ? "última checagem " + atras(execucoes[0].created_at) : "";
+    }
+
+    // --- execuções
+    if (execucoes && execucoes.length) {
+      const tb = $("execucoes"); tb.replaceChildren();
+      for (const r of execucoes) {
+        const tr = el("tr");
+        tr.append(el("td", "#" + r.run_number), el("td", fmt(r.created_at) + " (" + atras(r.created_at) + ")"));
+        const tdS = el("td");
+        let txt = r.status, cls = "azul";
+        if (r.status === "completed") {
+          txt = r.conclusion === "success" ? "sucesso" : r.conclusion === "failure" ? "erro" : (r.conclusion || "fim");
+          cls = r.conclusion === "success" ? "ok" : r.conclusion === "failure" ? "erro" : "aviso";
+        } else if (r.status === "in_progress") { txt = "rodando"; cls = "ok"; }
+        else if (r.status === "queued") { txt = "na fila"; cls = "aviso"; }
+        tdS.append(el("span", txt, "selo " + cls));
+        tr.append(tdS, el("td", r.event === "schedule" ? "automática" : r.event === "workflow_dispatch" ? "manual" : r.event));
+        const tdL = el("td"); tdL.append(link("ver log", r.html_url)); tr.append(tdL);
+        tb.append(tr);
+      }
+    } else if (execucoes) { vazio($("execucoes"), 5, "Nenhuma execução ainda."); }
+
+    // --- vídeos
+    const tbv = $("videos");
+    if (!historico.length) { vazio(tbv, 5, "Nenhum vídeo enviado ainda."); }
+    else {
+      tbv.replaceChildren();
+      for (const v of historico.slice().reverse().slice(0, 50)) {
+        const tr = el("tr");
+        tr.append(el("td", fmt(v.quando)), el("td", v.streamer));
+        const tdT = el("td", v.titulo);
+        if (v.privacidade !== "public") tdT.append(" ", el("span", "privado", "selo aviso"));
+        tr.append(tdT, el("td", (v.views ?? 0).toLocaleString("pt-BR")));
+        const tdL = el("td"); tdL.append(link("YouTube", v.youtube), " · ", link("clipe original", v.twitch)); tr.append(tdL);
+        tbv.append(tr);
+      }
+    }
+
+    // --- ranking
+    const cont = {};
+    for (const v of publicos) cont[v.streamer] = (cont[v.streamer] || 0) + 1;
+    const rank = Object.entries(cont).sort((a, b) => b[1] - a[1]).slice(0, 12);
+    const rk = $("ranking");
+    if (rank.length) { rk.replaceChildren(); for (const [nome, n] of rank) rk.append(el("span", nome + " · " + n, "tag")); }
+  }
+
+  // hashtags
+  for (const h of HASHTAGS) {
+    const b = el("span", h, "tag");
+    b.onclick = async () => { try { await navigator.clipboard.writeText(h); $("copiado").textContent = "Copiado: " + h; } catch (e) { $("copiado").textContent = "Não deu para copiar: " + h; } };
+    $("hashtags").append(b);
+  }
+  const todas = el("span", "copiar todas", "tag");
+  todas.onclick = async () => { try { await navigator.clipboard.writeText(HASHTAGS.join(" ")); $("copiado").textContent = "Todas copiadas."; } catch (e) {} };
+  $("hashtags").append(todas);
+
+  // --- botões de controle (usam um token que fica só neste navegador)
+  const WORKFLOW = "cortes.yml";
+  const lerLocal = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+  const gravarLocal = (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} };
+  const aviso = (texto, cls) => { const m = $("msg-controle"); m.textContent = texto; m.className = "suave " + (cls || ""); };
+
+  async function disparar(teste) {
+    const token = lerLocal("gh_token");
+    if (!token) {
+      $("form-token").style.display = "block";
+      aviso("Antes de rodar, salve o token do GitHub (campo abaixo).", "aviso");
+      return;
+    }
+    if (teste && !confirm("O teste envia 1 vídeo PRIVADO para o seu YouTube. Continuar?")) return;
+    const botoes = [$("btn-rodar"), $("btn-teste")];
+    botoes.forEach(b => b.disabled = true);
+    aviso("Enviando pedido ao GitHub…");
+    try {
+      const r = await fetch("https://api.github.com/repos/" + REPO + "/actions/workflows/" + WORKFLOW + "/dispatches", {
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer " + token,
+          "Accept": "application/vnd.github+json",
+          "X-GitHub-Api-Version": "2022-11-28",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ ref: "main", inputs: { teste: teste ? "true" : "false" } })
+      });
+      if (r.status === 204) {
+        aviso(teste ? "Teste iniciado. Acompanhe em “Execuções recentes”." : "Bot iniciado. Acompanhe em “Execuções recentes”.", "ok");
+        setTimeout(carregar, 4000); setTimeout(carregar, 15000);
+      } else if (r.status === 401) {
+        aviso("Token inválido ou vencido. Gere um novo e salve de novo.", "erro");
+      } else if (r.status === 403 || r.status === 404) {
+        aviso("O token não tem permissão em " + REPO + ". Ele precisa de acesso a este repositório com Actions: Read and write.", "erro");
+      } else if (r.status === 422) {
+        aviso("O GitHub recusou o pedido. Confira se o arquivo .github/workflows/cortes.yml está na branch main.", "erro");
+      } else {
+        aviso("Erro " + r.status + " ao falar com o GitHub.", "erro");
+      }
+    } catch (e) {
+      aviso("Não consegui falar com o GitHub. Confira a internet.", "erro");
+    } finally {
+      botoes.forEach(b => b.disabled = false);
+    }
+  }
+
+  $("btn-rodar").onclick = () => disparar(false);
+  $("btn-teste").onclick = () => disparar(true);
+  $("btn-token").onclick = () => {
+    const f = $("form-token"); f.style.display = f.style.display === "none" ? "block" : "none";
+  };
+  $("salvar-token").onclick = () => {
+    const t = $("campo-token").value.trim();
+    if (!t) { aviso("Cole o token antes de salvar.", "aviso"); return; }
+    gravarLocal("gh_token", t); $("campo-token").value = "";
+    $("form-token").style.display = "none";
+    aviso("Token salvo neste navegador. Agora é só clicar em “Rodar agora”.", "ok");
+  };
+  $("remover-token").onclick = () => {
+    gravarLocal("gh_token", null); $("campo-token").value = "";
+    aviso("Token removido deste navegador.");
+  };
+  if (!lerLocal("gh_token")) $("btn-token").textContent = "Salvar token do GitHub";
+
+  $("atualizar").onclick = carregar;
+  carregar();
+  setInterval(carregar, 60000);
+</script>
+</body>
+</html>
