@@ -1,9 +1,8 @@
-# Coloque este arquivo em .github/workflows/cortes.yml
 name: cortes-gta
 
 on:
   schedule:
-    - cron: "3-58/5 * * * *"   # de 5 em 5 minutos vê se tem live (evita o minuto 0, que atrasa mais)
+    - cron: "3-58/5 * * * *"
   workflow_dispatch:
     inputs:
       teste:
