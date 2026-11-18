@@ -7,10 +7,16 @@ Roda sozinho no GitHub Actions (veja .github/workflows/cortes.yml).
   python main.py checar   -> só diz se tem live agora
   python main.py live     -> fica de olho na live e vai postando (padrão)
   python main.py teste    -> posta 1 clipe das últimas 24h como PRIVADO para testar (sem repetir)
+
+Arquivos que o bot mantém no repositório (o painel index.html lê estes):
+  posted.json     -> clipes já postados (para nunca repetir)
+  historico.json  -> lista de vídeos enviados, com título, views e link
+  status.json     -> pausa automática quando a cota do YouTube acaba
 """
 import base64
 import json
 import os
+import re
 import subprocess
 import sys
 import textwrap
@@ -24,19 +30,44 @@ import requests
 SO_GTA = True        # só clipes de jogos "Grand Theft Auto" (pega GTA V e GTA VI)
 VIEWS_MIN = 100      # só posta clipe com pelo menos X views
 DURACAO_MIN = 10     # segundos
-MAX_POR_HORA = 3     # limite de Shorts por hora
-MAX_POR_DIA = 12     # limite de Shorts por dia (protege a cota do YouTube)
+MAX_POR_HORA = 6     # limite de Shorts por hora
+MAX_POR_DIA = 20     # limite de Shorts por dia (a cota do YouTube costuma parar antes disso)
 JANELA_MIN = 25      # quanto tempo cada execução fica de olho na live
 SONDAGEM = 60        # segundos entre uma olhada e outra na Twitch
+PAUSA_COTA_H = 6     # quando a cota do YouTube acaba, o bot pausa por este tempo
 MODELOS = ["gemini-3.8-flash", "gemini-3.6-flash"]  # Gemini grátis, por ordem de preferência
 FONTE = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 POSTADOS = Path("posted.json")
+HISTORICO = Path("historico.json")
+STATUS = Path("status.json")
 TMP = Path("tmp")
 STREAMERS = [s.strip().lower() for s in os.environ.get("STREAMERS", "").split(",") if s.strip()]
+
+# Hashtags comuns de GTA (o YouTube mostra as 3 primeiras acima do título)
+HASHTAGS_GTA6 = ["#GTA6", "#GTAVI", "#ViceCity", "#GrandTheftAutoVI", "#Rockstar"]
+HASHTAGS_GTA5 = ["#GTAV", "#GTA5", "#GTAOnline", "#GTARP"]
+HASHTAGS_BASE = ["#GTA", "#Shorts", "#Gaming", "#Twitch", "#Clips", "#Cortes"]
 
 
 def eh_gta(nome_do_jogo):
     return "grand theft auto" in (nome_do_jogo or "").lower()
+
+
+def eh_gta6(nome_do_jogo):
+    return bool(re.search(r"\bVI\b|\b6\b", nome_do_jogo or ""))
+
+
+def montar_hashtags(jogo, streamer):
+    jogo_tags = HASHTAGS_GTA6 if eh_gta6(jogo) else HASHTAGS_GTA5
+    tag_streamer = "#" + re.sub(r"\W", "", streamer or "")
+    tags = jogo_tags[:3] + ["#GTA", "#Shorts"] + ([tag_streamer] if len(tag_streamer) > 1 else []) \
+        + jogo_tags[3:] + HASHTAGS_BASE[2:]
+    vistas, saida = set(), []
+    for t in tags:
+        if t.lower() not in vistas:
+            vistas.add(t.lower())
+            saida.append(t)
+    return saida[:14]
 
 
 # ---------- tempo e estado ----------
@@ -64,12 +95,59 @@ def carregar_estado():
 
 def salvar_estado(estado):
     POSTADOS.write_text(json.dumps(estado, indent=1))
+    for arq, vazio in ((HISTORICO, "[]"), (STATUS, "{}")):
+        if not arq.exists():
+            arq.write_text(vazio)
     if os.environ.get("GITHUB_ACTIONS"):
         subprocess.run(
             "git config user.name cortes-bot && git config user.email cortes-bot@users.noreply.github.com"
-            " && git add posted.json && (git diff --cached --quiet"
+            " && git add posted.json historico.json status.json && (git diff --cached --quiet"
             " || (git commit -qm 'clipes postados' && git pull -q --rebase && git push -q))",
             shell=True)
+
+
+def carregar_historico():
+    if HISTORICO.exists():
+        try:
+            return json.loads(HISTORICO.read_text())
+        except Exception:
+            return []
+    return []
+
+
+def registrar(c, titulo, video_id, privacidade):
+    historico = carregar_historico()
+    historico.append({
+        "quando": iso(agora()),
+        "streamer": c["broadcaster_name"],
+        "jogo": c.get("_jogo", ""),
+        "titulo": titulo,
+        "titulo_original": c["title"],
+        "views": c["view_count"],
+        "youtube": "https://youtube.com/shorts/" + video_id,
+        "twitch": c["url"],
+        "privacidade": privacidade,
+    })
+    HISTORICO.write_text(json.dumps(historico[-500:], ensure_ascii=False, indent=1))
+
+
+def pausado():
+    try:
+        return ler_iso(json.loads(STATUS.read_text())["pausado_ate"]) > agora()
+    except Exception:
+        return False
+
+
+def pausar(estado, motivo):
+    STATUS.write_text(json.dumps(
+        {"pausado_ate": iso(agora() + timedelta(hours=PAUSA_COTA_H)), "motivo": motivo}, ensure_ascii=False))
+    salvar_estado(estado)
+
+
+def despausar(estado):
+    if STATUS.exists() and STATUS.read_text().strip() not in ("", "{}") and not pausado():
+        STATUS.write_text("{}")
+        salvar_estado(estado)
 
 
 # ---------- Twitch ----------
@@ -106,13 +184,19 @@ def ao_vivo(tw):
 
 
 def so_gta(tw, clipes):
-    """Fica só com os clipes cujo jogo é Grand Theft Auto (V ou VI)."""
+    """Fica só com os clipes cujo jogo é Grand Theft Auto (V ou VI) e anota o nome do jogo."""
     ids = list({c["game_id"] for c in clipes if c["game_id"]})
     nomes = {}
     for i in range(0, len(ids), 100):
         for g in tw.get("games", id=ids[i:i + 100]):
             nomes[g["id"]] = g["name"]
-    return [c for c in clipes if eh_gta(nomes.get(c["game_id"], ""))]
+    saida = []
+    for c in clipes:
+        nome = nomes.get(c["game_id"], "")
+        if eh_gta(nome):
+            c["_jogo"] = nome
+            saida.append(c)
+    return saida
 
 
 def repetido(c, estado):
@@ -136,6 +220,7 @@ def escolher_clipe(tw, vivos, estado):
                 continue
             if repetido(c, estado):
                 continue
+            c["_jogo"] = v["game_name"]
             candidatos.append(c)
     return max(candidatos, key=lambda c: c["view_count"], default=None)
 
@@ -156,20 +241,22 @@ def extrair_frame(video, saida, segundo):
                     "-frames:v", "1", "-vf", "scale=768:-2", str(saida)], check=True)
 
 
-def titulo_ia(frame, titulo_original, streamer):
+def titulo_ia(frame, titulo_original, streamer, jogo):
     """Gemini (grátis) olha uma cena e escreve o título. Sem chave ou com erro: usa o título do clipe."""
     reserva = f"{streamer}: {titulo_original}"[:60]
     chave = os.environ.get("GEMINI_API_KEY")
     if not chave:
         return reserva
     imagem = base64.b64encode(Path(frame).read_bytes()).decode()
+    nome_jogo = "GTA 6" if eh_gta6(jogo) else "GTA"
     pedido = {"contents": [{"parts": [
         {"inline_data": {"mime_type": "image/jpeg", "data": imagem}},
         {"text": (
-            f"Esta é uma cena de um clipe de GTA do streamer {streamer}. "
+            f"Esta é uma cena de um clipe de {nome_jogo} do streamer {streamer}. "
             f"O título original do clipe é: {titulo_original!r}. "
-            "Escreva UM título em português do Brasil, com no máximo 60 caracteres, "
-            "dizendo o que o streamer está fazendo nesse momento. "
+            "Escreva UM título curto e chamativo em português do Brasil, com no máximo 60 caracteres, "
+            "que gere curiosidade e diga o que acontece nessa cena, no estilo de cortes do YouTube. "
+            "Não invente fatos que a imagem e o título original não mostrem. "
             "Sem emojis, sem aspas, sem hashtags. Responda só com o título.")},
     ]}]}
     for modelo in MODELOS:
@@ -234,13 +321,14 @@ def enviar(video, titulo, clipe, privacidade="public"):
         token_uri="https://oauth2.googleapis.com/token",
     )
     yt = build("youtube", "v3", credentials=cred)
+    tags = montar_hashtags(clipe.get("_jogo", ""), clipe["broadcaster_name"])
     corpo = {
         "snippet": {
             "title": f"{titulo} #Shorts"[:100],
-            "description": (f"Clipe de {clipe['broadcaster_name']} na Twitch: {clipe['url']}\n\n"
-                            "#Shorts #GTA #GTA6 #GTARP"),
+            "description": (f"Clipe de {clipe['broadcaster_name']} na Twitch: {clipe['url']}\n"
+                            f"Título original: {clipe['title']}\n\n" + " ".join(tags)),
             "categoryId": "20",
-            "tags": ["gta", "gta 6", "gta rp", "clipes", "shorts"],
+            "tags": [t.lstrip("#").lower() for t in tags],
         },
         "status": {"privacyStatus": privacidade, "selfDeclaredMadeForKids": False},
         "paidProductPlacementDetails": {"hasPaidProductPlacement": False},
@@ -271,7 +359,7 @@ def publicar(c, foto, estado, teste=False):
     try:
         baixar(c["url"], bruto)
         extrair_frame(bruto, frame, c["duration"] / 2)
-        titulo = titulo_ia(frame, c["title"], c["broadcaster_name"])
+        titulo = titulo_ia(frame, c["title"], c["broadcaster_name"], c.get("_jogo", ""))
         cartao_texto(titulo, c["broadcaster_name"], card)
         editar(bruto, foto, card, final)
     except Exception as e:  # clipe com problema: marca e segue para o próximo
@@ -282,10 +370,12 @@ def publicar(c, foto, estado, teste=False):
         salvar_estado(estado)
         return
     print("Título:", titulo)
-    video_id = enviar(final, ("[TESTE] " if teste else "") + titulo, c, "private" if teste else "public")
+    privacidade = "private" if teste else "public"
+    video_id = enviar(final, ("[TESTE] " if teste else "") + titulo, c, privacidade)
     print("Enviado: https://youtube.com/shorts/" + video_id)
     # anota sempre (inclusive no teste), para nunca enviar o mesmo clipe duas vezes
     estado[c["id"]] = [iso(agora()), c["created_at"], c["broadcaster_id"]]
+    registrar(c, ("[TESTE] " if teste else "") + titulo, video_id, privacidade)
     salvar_estado(estado)
 
 
@@ -295,6 +385,10 @@ def modo_live():
     foto = achar_foto()
     tw = Twitch()
     estado = carregar_estado()
+    if pausado():
+        print("Pausado até a cota do YouTube voltar.")
+        return
+    despausar(estado)
     fim = time.time() + JANELA_MIN * 60
     sem_live = 0
     while time.time() < fim:
@@ -319,13 +413,17 @@ def modo_live():
         except Exception as e:  # erro do YouTube (cota, etc.): não derruba tudo
             print("Erro ao postar:", e)
             if "quota" in str(e).lower():
-                print("Cota do YouTube esgotada, parando.")
+                print(f"Cota do YouTube esgotada, pausando por {PAUSA_COTA_H}h.")
+                pausar(estado, "Cota do YouTube esgotada")
                 break
         time.sleep(SONDAGEM)
 
 
 def checar():
-    if not STREAMERS:
+    if pausado():
+        print("Pausado: cota do YouTube esgotada.")
+        vivos = []
+    elif not STREAMERS:
         print("Falta a variável STREAMERS (Settings > Secrets and variables > Actions > Variables).")
         vivos = []
     else:
