@@ -4,208 +4,372 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cortes AI | Dashboard</title>
+<title>Cortes AI | Live Monitor</title>
 
 <style>
+:root {
+    --bg: #090b12;
+    --panel: #121722;
+    --panel2: #192131;
+    --border: #252e3d;
+    --text: #f8fafc;
+    --muted: #8995a8;
+    --purple: #9565ff;
+    --green: #32db87;
+    --blue: #56a5ff;
+}
+
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 body {
-    background: #0b0e14;
-    color: #f1f5f9;
-    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Inter, Arial, sans-serif;
+    min-height: 100vh;
 }
 
 header {
-    background: #111722;
-    padding: 22px 5%;
-    border-bottom: 1px solid #252e3d;
+    height: 76px;
+    padding: 0 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
+    background: rgba(18,23,34,.95);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(15px);
 }
 
 .logo {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 1px;
 }
 
 .logo span {
-    color: #8b5cf6;
+    color: var(--purple);
 }
 
-.status {
-    color: #22c55e;
-    font-size: 13px;
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.live-status {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--green);
+    font-weight: bold;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--green);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    50% { opacity: .35; transform: scale(.75); }
 }
 
 .container {
-    width: 90%;
-    max-width: 1400px;
-    margin: 30px auto;
+    width: 92%;
+    max-width: 1500px;
+    margin: 35px auto;
 }
 
-h2 {
-    margin: 30px 0 18px;
-    font-size: 20px;
-}
-
-.cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    gap: 15px;
-}
-
-.card {
-    background: #151c28;
-    border: 1px solid #263244;
-    padding: 22px;
-    border-radius: 12px;
-}
-
-.card p {
-    color: #94a3b8;
-    font-size: 13px;
-}
-
-.card h3 {
-    font-size: 30px;
-    margin-top: 12px;
-}
-
-.purple {
-    color: #a78bfa;
-}
-
-.green {
-    color: #4ade80;
-}
-
-.blue {
-    color: #60a5fa;
-}
-
-.orange {
-    color: #fb923c;
-}
-
-.toolbar {
+.welcome {
     display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 15px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
 }
 
-input, select, button {
-    background: #151c28;
+.welcome h1 {
+    font-size: clamp(23px, 4vw, 32px);
+    letter-spacing: -.8px;
+}
+
+.welcome p {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 7px;
+}
+
+.refresh {
+    border: 1px solid var(--border);
+    background: var(--panel);
     color: white;
-    border: 1px solid #334155;
-    border-radius: 7px;
-    padding: 11px;
-}
-
-input {
-    flex: 1;
-    min-width: 180px;
-}
-
-button {
+    padding: 11px 16px;
+    border-radius: 9px;
     cursor: pointer;
 }
 
-button:hover {
-    background: #293449;
+.refresh:hover {
+    border-color: var(--purple);
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.stat {
+    background: linear-gradient(145deg, #171e2d, #111621);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px;
+    transition: .25s;
+}
+
+.stat:hover {
+    transform: translateY(-4px);
+    border-color: var(--purple);
+}
+
+.stat-label {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.stat-value {
+    font-size: clamp(25px, 3vw, 34px);
+    font-weight: 800;
+    margin-top: 12px;
+}
+
+.purple { color: var(--purple); }
+.green { color: var(--green); }
+.blue { color: var(--blue); }
+
+.section {
+    margin-top: 38px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.section-header h2 {
+    font-size: 19px;
+}
+
+.section-count {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.search {
+    width: 260px;
+    max-width: 45%;
+    background: var(--panel);
+    color: white;
+    border: 1px solid var(--border);
+    padding: 11px 13px;
+    border-radius: 9px;
+    outline: none;
+}
+
+.search:focus {
+    border-color: var(--purple);
+}
+
+.lives-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.live-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: .25s;
+}
+
+.live-card:hover {
+    transform: translateY(-4px);
+    border-color: #7951d8;
+}
+
+.thumbnail {
+    position: relative;
+    height: 165px;
+    background: var(--panel2);
+    overflow: hidden;
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: .4s;
+}
+
+.live-card:hover .thumbnail img {
+    transform: scale(1.04);
+}
+
+.live-badge {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    background: #e42e55;
+    padding: 6px 9px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.viewer-badge {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    background: rgba(0,0,0,.8);
+    padding: 6px 9px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.live-info {
+    padding: 16px;
+}
+
+.live-channel {
+    font-size: 16px;
+    font-weight: bold;
+    overflow-wrap: anywhere;
+}
+
+.live-game {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 7px;
+    min-height: 15px;
+}
+
+.live-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 17px;
+    gap: 8px;
+}
+
+.language {
+    color: var(--muted);
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.watch {
+    color: white;
+    background: #7951d8;
+    text-decoration: none;
+    padding: 9px 13px;
+    border-radius: 7px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.watch:hover {
+    background: #9565ff;
 }
 
 .table-box {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 13px;
     overflow-x: auto;
-    background: #151c28;
-    border: 1px solid #263244;
-    border-radius: 12px;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 700px;
+    min-width: 600px;
 }
 
 th, td {
+    padding: 15px;
+    border-bottom: 1px solid var(--border);
     text-align: left;
-    padding: 14px;
-    border-bottom: 1px solid #263244;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 th {
-    color: #94a3b8;
-    background: #111722;
+    color: var(--muted);
+    font-weight: 500;
+    background: rgba(255,255,255,.015);
 }
 
-tr:hover {
-    background: #1d2939;
+tr:last-child td {
+    border-bottom: 0;
 }
 
-a {
-    color: #a78bfa;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
+.score {
+    color: var(--green);
+    font-weight: bold;
 }
 
 .tag {
-    display: inline-block;
-    background: #292044;
-    color: #c4b5fd;
-    padding: 5px 9px;
+    background: #28203e;
+    color: #c4aaff;
     border-radius: 20px;
-    font-size: 11px;
-}
-
-.tag-green {
-    background: #123322;
-    color: #4ade80;
-}
-
-.tag-red {
-    background: #421b25;
-    color: #fca5a5;
+    padding: 5px 9px;
+    font-size: 10px;
 }
 
 .empty {
-    padding: 25px;
     text-align: center;
-    color: #94a3b8;
+    color: var(--muted);
+    padding: 35px;
 }
 
 footer {
+    border-top: 1px solid var(--border);
     text-align: center;
-    color: #64748b;
-    padding: 30px;
-    font-size: 12px;
+    padding: 25px;
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 50px;
 }
 
-#ultimaAtualizacao {
-    color: #94a3b8;
-    font-size: 12px;
-    margin-top: 10px;
+@media(max-width: 1000px) {
+    .lives-grid { grid-template-columns: repeat(2, 1fr); }
+    .stats { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media(max-width: 600px) {
-    .container {
-        width: 94%;
-    }
-
-    header {
-        padding: 18px;
-    }
+    header { padding: 0 4%; height: 65px; }
+    .container { width: 94%; margin-top: 25px; }
+    .lives-grid { grid-template-columns: 1fr; }
+    .stats { gap: 9px; }
+    .stat { padding: 15px; }
+    .welcome { align-items: flex-start; }
+    .header-right { gap: 8px; }
+    .search { max-width: 55%; }
+    .thumbnail { height: 190px; }
 }
 </style>
 </head>
@@ -214,142 +378,140 @@ footer {
 
 <header>
     <div class="logo">CORTES <span>AI</span></div>
-    <div>
-        <div class="status">● PAINEL ONLINE</div>
-        <div id="ultimaAtualizacao">Carregando dados...</div>
+
+    <div class="header-right">
+        <div class="live-status">
+            <span class="dot"></span>
+            MONITORANDO
+        </div>
+        <span id="clock">--:--:--</span>
     </div>
 </header>
 
 <main class="container">
 
-    <h2>Visão geral</h2>
-
-    <section class="cards">
-        <div class="card">
-            <p>Transmissões encontradas</p>
-            <h3 class="purple" id="totalLives">0</h3>
+    <div class="welcome">
+        <div>
+            <h1>Live Monitor</h1>
+            <p>Monitoramento de transmissões e melhores momentos.</p>
         </div>
 
-        <div class="card">
-            <p>Clipes encontrados</p>
-            <h3 class="blue" id="totalClipes">0</h3>
+        <button class="refresh" onclick="atualizarPainel()">
+            ↻ Atualizar
+        </button>
+    </div>
+
+    <section class="stats">
+
+        <div class="stat">
+            <div class="stat-label">🔴 Canais ao vivo</div>
+            <div class="stat-value purple" id="totalLives">0</div>
         </div>
 
-        <div class="card">
-            <p>Melhores clipes</p>
-            <h3 class="green" id="totalMelhores">0</h3>
+        <div class="stat">
+            <div class="stat-label">👁 Espectadores</div>
+            <div class="stat-value green" id="totalEspectadores">0</div>
         </div>
 
-        <div class="card">
-            <p>Analisados pelo Gemini</p>
-            <h3 class="orange" id="totalIA">0</h3>
+        <div class="stat">
+            <div class="stat-label">✂ Clipes encontrados</div>
+            <div class="stat-value blue" id="totalClipes">0</div>
         </div>
+
+        <div class="stat">
+            <div class="stat-label">🤖 Análises Gemini</div>
+            <div class="stat-value" id="totalIA">0</div>
+        </div>
+
     </section>
 
-    <h2>Transmissões ao vivo</h2>
+    <section class="section">
 
-    <div class="toolbar">
-        <input id="buscaLives" placeholder="Buscar canal, jogo ou idioma..." oninput="mostrarLives()">
-    </div>
-
-    <div class="table-box">
-        <table>
-            <thead>
-                <tr>
-                    <th>Canal</th>
-                    <th>Categoria</th>
-                    <th>Idioma</th>
-                    <th>Espectadores</th>
-                </tr>
-            </thead>
-            <tbody id="tabelaLives"></tbody>
-        </table>
-    </div>
-
-    <h2>Clipes encontrados</h2>
-
-    <div class="toolbar">
-        <input id="buscaClipes" placeholder="Buscar clipe ou criador..." oninput="mostrarClipes()">
-    </div>
-
-    <div class="table-box">
-        <table>
-            <thead>
-                <tr>
-                    <th>Criador</th>
-                    <th>Título</th>
-                    <th>Visualizações</th>
-                    <th>Duração</th>
-                    <th>Link</th>
-                </tr>
-            </thead>
-            <tbody id="tabelaClipes"></tbody>
-        </table>
-    </div>
-
-    <h2>Ranking dos melhores clipes</h2>
-
-    <div class="table-box">
-        <table>
-            <thead>
-                <tr>
-                    <th>Posição</th>
-                    <th>Criador</th>
-                    <th>Título</th>
-                    <th>Visualizações</th>
-                    <th>Pontuação</th>
-                </tr>
-            </thead>
-            <tbody id="tabelaMelhores"></tbody>
-        </table>
-    </div>
-
-    <h2>Análises do Gemini</h2>
-
-    <div class="table-box">
-        <table>
-            <thead>
-                <tr>
-                    <th>Criador</th>
-                    <th>Título</th>
-                    <th>Potencial</th>
-                    <th>Categoria</th>
-                    <th>Conteúdo impróprio</th>
-                    <th>Motivo</th>
-                </tr>
-            </thead>
-            <tbody id="tabelaIA"></tbody>
-        </table>
-    </div>
-
-    <h2>Status do sistema</h2>
-
-    <div class="cards">
-        <div class="card">
-            <p>Situação</p>
-            <h3 class="green" id="situacao" style="font-size:20px">Aguardando</h3>
+        <div class="section-header">
+            <h2>🔴 Transmissões ao vivo</h2>
+            <input
+                class="search"
+                id="buscaLives"
+                placeholder="Buscar canal ou jogo..."
+                oninput="mostrarLives()"
+            >
         </div>
 
-        <div class="card">
-            <p>Última busca</p>
-            <h3 id="ultimaBusca" style="font-size:16px">--</h3>
+        <div class="section-header" style="margin-top:-10px">
+            <span class="section-count" id="quantidadeLives">0 transmissões</span>
+            <span class="section-count">Twitch</span>
         </div>
 
-        <div class="card">
-            <p>Plataforma</p>
-            <h3 id="plataforma" style="font-size:20px">--</h3>
+        <div class="lives-grid" id="livesGrid">
+            <div class="empty">Carregando transmissões...</div>
         </div>
-    </div>
+
+    </section>
+
+    <section class="section">
+
+        <div class="section-header">
+            <h2>🏆 Melhores clipes</h2>
+            <span class="section-count" id="quantidadeMelhores">0 clipes</span>
+        </div>
+
+        <div class="table-box">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Criador</th>
+                        <th>Título</th>
+                        <th>Visualizações</th>
+                        <th>Pontuação</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaMelhores">
+                    <tr><td colspan="6" class="empty">Carregando...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+
+    <section class="section">
+
+        <div class="section-header">
+            <h2>🤖 Inteligência artificial</h2>
+            <span class="section-count">Gemini</span>
+        </div>
+
+        <div class="table-box">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Criador</th>
+                        <th>Clipe</th>
+                        <th>Potencial</th>
+                        <th>Categoria</th>
+                        <th>Alerta</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaIA">
+                    <tr><td colspan="5" class="empty">Aguardando análises...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    </section>
 
 </main>
 
 <footer>
-    CORTES AI — Sistema de descoberta e análise de clipes
-    <br><br>
-    Dados atualizados automaticamente a cada 60 segundos.
+    CORTES AI · LIVE MONITOR
+    <div id="ultimaAtualizacao" style="margin-top:8px">
+        Aguardando dados...
+    </div>
 </footer>
 
 <script>
+
 let lives = [];
 let clipes = [];
 let melhores = [];
@@ -358,7 +520,8 @@ let analises = [];
 async function carregarArquivo(nome) {
     try {
         const resposta = await fetch(
-            "dados/" + nome + "?t=" + Date.now()
+            "dados/" + nome + "?t=" + Date.now(),
+            { cache: "no-store" }
         );
 
         if (!resposta.ok) return [];
@@ -366,13 +529,9 @@ async function carregarArquivo(nome) {
         return await resposta.json();
 
     } catch (erro) {
-        console.error("Erro ao carregar " + nome, erro);
+        console.error("Erro ao carregar:", nome, erro);
         return [];
     }
-}
-
-function numero(valor) {
-    return Number(valor || 0).toLocaleString("pt-BR");
 }
 
 function escapar(valor) {
@@ -385,131 +544,222 @@ function escapar(valor) {
     })[letra]);
 }
 
-function dataFormatada(valor) {
-    if (!valor) return "--";
+function numero(valor) {
+    return Number(valor || 0).toLocaleString("pt-BR");
+}
 
-    const data = new Date(valor);
-
-    if (isNaN(data)) return escapar(valor);
-
-    return data.toLocaleString("pt-BR");
+function compacto(valor) {
+    return Intl.NumberFormat("pt-BR", {
+        notation: "compact",
+        maximumFractionDigits: 1
+    }).format(Number(valor || 0));
 }
 
 function mostrarLives() {
-    const busca = document.getElementById("buscaLives").value.toLowerCase();
+
+    const busca = document
+        .getElementById("buscaLives")
+        .value.toLowerCase();
 
     const filtradas = lives.filter(live =>
         String(live.canal || "").toLowerCase().includes(busca) ||
-        String(live.categoria || "").toLowerCase().includes(busca) ||
-        String(live.idioma || "").toLowerCase().includes(busca)
+        String(live.categoria || "").toLowerCase().includes(busca)
     );
 
-    document.getElementById("tabelaLives").innerHTML =
-        filtradas.map(live => `
-            <tr>
-                <td><strong>${escapar(live.canal)}</strong></td>
-                <td>${escapar(live.categoria)}</td>
-                <td>${escapar(live.idioma)}</td>
-                <td class="green">${numero(live.espectadores)}</td>
-            </tr>
-        `).join("") || '<tr><td colspan="4" class="empty">Nenhuma transmissão encontrada.</td></tr>';
-}
+    document.getElementById("quantidadeLives").textContent =
+        filtradas.length + " transmissões";
 
-function mostrarClipes() {
-    const busca = document.getElementById("buscaClipes").value.toLowerCase();
+    const grid = document.getElementById("livesGrid");
 
-    const filtrados = clipes.filter(clipe =>
-        String(clipe.canal || "").toLowerCase().includes(busca) ||
-        String(clipe.titulo || "").toLowerCase().includes(busca)
-    );
+    if (!filtradas.length) {
+        grid.innerHTML =
+            '<div class="empty">Nenhuma transmissão encontrada.</div>';
+        return;
+    }
 
-    document.getElementById("tabelaClipes").innerHTML =
-        filtrados.map(clipe => `
-            <tr>
-                <td>${escapar(clipe.canal)}</td>
-                <td>${escapar(clipe.titulo)}</td>
-                <td>${numero(clipe.visualizacoes)}</td>
-                <td>${escapar(clipe.duracao)}s</td>
-                <td>
-                    ${clipe.url ? `<a href="${escapar(clipe.url)}" target="_blank" rel="noopener noreferrer">Assistir</a>` : "--"}
-                </td>
-            </tr>
-        `).join("") || '<tr><td colspan="5" class="empty">Nenhum clipe encontrado.</td></tr>';
+    grid.innerHTML = filtradas.map(live => {
+
+        let imagem = live.thumbnail || "";
+
+        if (imagem) {
+            imagem = imagem
+                .replace("{width}", "640")
+                .replace("{height}", "360");
+        }
+
+        const canal = escapar(live.canal);
+        const urlCanal =
+            "https://www.twitch.tv/" + encodeURIComponent(live.canal || "");
+
+        return `
+            <article class="live-card">
+
+                <div class="thumbnail">
+
+                    ${imagem
+                        ? `<img src="${escapar(imagem)}" alt="" loading="lazy" onerror="this.style.display='none'">`
+                        : ""
+                    }
+
+                    <span class="live-badge">● AO VIVO</span>
+
+                    <span class="viewer-badge">
+                        👁 ${compacto(live.espectadores)}
+                    </span>
+
+                </div>
+
+                <div class="live-info">
+
+                    <div class="live-channel">${canal}</div>
+
+                    <div class="live-game">
+                        ${escapar(live.categoria || "Categoria não informada")}
+                    </div>
+
+                    <div class="live-footer">
+
+                        <span class="language">
+                            ${escapar(live.idioma || "N/A")}
+                        </span>
+
+                        <a
+                            class="watch"
+                            href="${escapar(urlCanal)}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            ASSISTIR ↗
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </article>
+        `;
+
+    }).join("");
 }
 
 function mostrarMelhores() {
-    document.getElementById("tabelaMelhores").innerHTML =
-        melhores.map((clipe, indice) => `
-            <tr>
-                <td>#${indice + 1}</td>
-                <td>${escapar(clipe.canal)}</td>
-                <td>${escapar(clipe.titulo)}</td>
-                <td>${numero(clipe.visualizacoes)}</td>
-                <td><span class="tag">${escapar(clipe.pontuacao)} pontos</span></td>
-            </tr>
-        `).join("") || '<tr><td colspan="5" class="empty">Ranking ainda não disponível.</td></tr>';
+
+    const corpo = document.getElementById("tabelaMelhores");
+
+    document.getElementById("quantidadeMelhores").textContent =
+        melhores.length + " clipes";
+
+    if (!melhores.length) {
+        corpo.innerHTML =
+            '<tr><td colspan="6" class="empty">Nenhum clipe disponível.</td></tr>';
+        return;
+    }
+
+    corpo.innerHTML = melhores.slice(0, 15).map((clipe, indice) => `
+        <tr>
+            <td>${indice + 1}</td>
+            <td>${escapar(clipe.canal)}</td>
+            <td>${escapar(clipe.titulo)}</td>
+            <td>${numero(clipe.visualizacoes)}</td>
+            <td><span class="score">${escapar(clipe.pontuacao)} pts</span></td>
+            <td>
+                ${clipe.url
+                    ? `<a href="${escapar(clipe.url)}" target="_blank" rel="noopener noreferrer">Abrir ↗</a>`
+                    : "--"}
+            </td>
+        </tr>
+    `).join("");
 }
 
 function mostrarIA() {
-    document.getElementById("tabelaIA").innerHTML =
-        analises.map(clipe => {
-            const ia = clipe.analise_ia || {};
 
-            return `
-                <tr>
-                    <td>${escapar(clipe.canal)}</td>
-                    <td>${escapar(clipe.titulo)}</td>
-                    <td><span class="tag">${escapar(ia.potencial ?? "--")}/100</span></td>
-                    <td>${escapar(ia.categoria || "--")}</td>
-                    <td>
-                        ${ia.conteudo_improprio === true
-                            ? '<span class="tag-red tag">Sim</span>'
-                            : ia.conteudo_improprio === false
-                                ? '<span class="tag-green tag">Não identificado</span>'
-                                : '--'}
-                    </td>
-                    <td>${escapar(ia.motivo || "--")}</td>
-                </tr>
-            `;
-        }).join("") || '<tr><td colspan="6" class="empty">Nenhuma análise do Gemini disponível.</td></tr>';
+    const corpo = document.getElementById("tabelaIA");
+
+    if (!analises.length) {
+        corpo.innerHTML =
+            '<tr><td colspan="5" class="empty">Aguardando análises do Gemini.</td></tr>';
+        return;
+    }
+
+    corpo.innerHTML = analises.map(clipe => {
+
+        const ia = clipe.analise_ia || {};
+
+        const alerta = ia.conteudo_improprio === true
+            ? '<span style="color:#ff7777">⚠ Revisar</span>'
+            : ia.conteudo_improprio === false
+                ? '<span style="color:#32db87">✓ Sem alerta</span>'
+                : "--";
+
+        return `
+            <tr>
+                <td>${escapar(clipe.canal)}</td>
+                <td>${escapar(clipe.titulo)}</td>
+                <td><span class="score">${escapar(ia.potencial ?? "--")}/100</span></td>
+                <td>${escapar(ia.categoria || "--")}</td>
+                <td>${alerta}</td>
+            </tr>
+        `;
+
+    }).join("");
 }
 
 async function atualizarPainel() {
-    const resultados = await Promise.all([
+
+    const botao = document.querySelector(".refresh");
+
+    if (botao) botao.textContent = "↻ Atualizando...";
+
+    const dados = await Promise.all([
         carregarArquivo("transmissoes.json"),
         carregarArquivo("clipes.json"),
         carregarArquivo("melhores_clipes.json"),
-        carregarArquivo("analise_ia.json"),
-        carregarArquivo("status.json")
+        carregarArquivo("analise_ia.json")
     ]);
 
-    lives = Array.isArray(resultados[0]) ? resultados[0] : [];
-    clipes = Array.isArray(resultados[1]) ? resultados[1] : [];
-    melhores = Array.isArray(resultados[2]) ? resultados[2] : [];
-    analises = Array.isArray(resultados[3]) ? resultados[3] : [];
+    lives = Array.isArray(dados[0]) ? dados[0] : [];
+    clipes = Array.isArray(dados[1]) ? dados[1] : [];
+    melhores = Array.isArray(dados[2]) ? dados[2] : [];
+    analises = Array.isArray(dados[3]) ? dados[3] : [];
 
-    const status = resultados[4] || {};
+    const totalEspectadores = lives.reduce(
+        (total, live) => total + Number(live.espectadores || 0),
+        0
+    );
 
-    document.getElementById("totalLives").textContent = numero(lives.length);
-    document.getElementById("totalClipes").textContent = numero(clipes.length);
-    document.getElementById("totalMelhores").textContent = numero(melhores.length);
-    document.getElementById("totalIA").textContent = numero(analises.length);
+    document.getElementById("totalLives").textContent =
+        numero(lives.length);
 
-    document.getElementById("situacao").textContent = status.situacao || "Aguardando";
-    document.getElementById("ultimaBusca").textContent = dataFormatada(status.ultima_busca);
-    document.getElementById("plataforma").textContent = status.plataforma || "--";
+    document.getElementById("totalEspectadores").textContent =
+        compacto(totalEspectadores);
+
+    document.getElementById("totalClipes").textContent =
+        numero(clipes.length);
+
+    document.getElementById("totalIA").textContent =
+        numero(analises.length);
 
     mostrarLives();
-    mostrarClipes();
     mostrarMelhores();
     mostrarIA();
 
     document.getElementById("ultimaAtualizacao").textContent =
-        "Painel atualizado: " + new Date().toLocaleTimeString("pt-BR");
+        "Atualizado às " + new Date().toLocaleTimeString("pt-BR");
+
+    if (botao) botao.textContent = "↻ Atualizar";
+}
+
+function atualizarRelogio() {
+    document.getElementById("clock").textContent =
+        new Date().toLocaleTimeString("pt-BR");
 }
 
 atualizarPainel();
+atualizarRelogio();
+
 setInterval(atualizarPainel, 60000);
+setInterval(atualizarRelogio, 1000);
+
 </script>
 
 </body>
