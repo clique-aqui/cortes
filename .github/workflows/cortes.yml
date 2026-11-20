@@ -39,6 +39,13 @@ jobs:
         run: |
           python main.py buscar
 
+                - name: Buscar clipes
+        env:
+          TWITCH_CLIENT_ID: ${{ secrets.TWITCH_CLIENT_ID }}
+          TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
+        run: |
+          python main.py clipes
+
       - name: Salvar resultados
         run: |
           git config user.name "cortes-ai"
