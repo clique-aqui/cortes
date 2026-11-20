@@ -14,7 +14,7 @@ DADOS.mkdir(exist_ok=True)
 
 
 # ==========================================
-# FUNCOES DE ARQUIVOS
+# ARQUIVOS
 # ==========================================
 
 def salvar(nome, conteudo):
@@ -36,7 +36,6 @@ def carregar(nome, padrao):
         return json.loads(
             caminho.read_text(encoding="utf-8")
         )
-
     except (json.JSONDecodeError, OSError):
         return padrao
 
@@ -46,7 +45,7 @@ def carregar(nome, padrao):
 # ==========================================
 
 def executar_busca():
-    print("Iniciando descoberta mundial...")
+    print("Iniciando descoberta mundial...", flush=True)
 
     transmissoes = descobrir()
 
@@ -63,6 +62,10 @@ def executar_busca():
         "ultima_busca": datetime.now(timezone.utc).isoformat(),
         "plataforma": "Twitch",
         "transmissoes_encontradas": len(transmissoes),
+        "espectadores_totais": sum(
+            live.get("espectadores", 0)
+            for live in transmissoes
+        ),
         "situacao": "Busca concluída"
     })
 
@@ -88,7 +91,7 @@ def executar_busca():
 # ==========================================
 
 def executar_busca_clipes():
-    print("Iniciando busca de clipes da Twitch...")
+    print("Iniciando busca de clipes da Twitch...", flush=True)
 
     transmissoes = carregar("transmissoes.json", [])
 
@@ -108,7 +111,7 @@ def executar_busca_clipes():
         if not canal_id:
             continue
 
-        print("Buscando clipes de:", canal)
+        print("Buscando clipes de:", canal, flush=True)
 
         try:
             clipes = twitch.buscar_clipes(
@@ -133,7 +136,8 @@ def executar_busca_clipes():
                 "Erro ao buscar clipes de",
                 canal,
                 ":",
-                erro
+                erro,
+                flush=True
             )
 
     todos_clipes.sort(
@@ -144,7 +148,7 @@ def executar_busca_clipes():
     salvar("clipes.json", todos_clipes)
 
     print("Busca de clipes concluída!")
-    print("Total de clipes encontrados:", len(todos_clipes))
+    print("Total de clipes:", len(todos_clipes))
 
     for clipe in todos_clipes[:10]:
         print(
@@ -162,7 +166,7 @@ def executar_busca_clipes():
 # ==========================================
 
 def selecionar_melhores_clipes():
-    print("Analisando potencial dos clipes...")
+    print("Analisando potencial dos clipes...", flush=True)
 
     clipes = carregar("clipes.json", [])
 
@@ -218,10 +222,8 @@ def selecionar_melhores_clipes():
 
         if 15 <= duracao <= 60:
             pontos_duracao = 20
-
         elif 10 <= duracao < 15:
             pontos_duracao = 15
-
         else:
             pontos_duracao = 5
 
@@ -262,7 +264,7 @@ def selecionar_melhores_clipes():
 # ==========================================
 
 def analisar_com_ia():
-    print("Iniciando análise com Gemini...")
+    print("Iniciando análise com Gemini...", flush=True)
 
     from ia.gemini import analisar_clipe
 
@@ -274,10 +276,16 @@ def analisar_com_ia():
 
     resultados = []
 
-    for clipe in clipes[:10]:
+    # Primeiro teste: somente 3 clipes
+    selecionados = clipes[:3]
+
+    for indice, clipe in enumerate(selecionados, start=1):
         titulo = clipe.get("titulo", "Sem título")
 
-        print("Analisando:", titulo)
+        print(
+            f"Analisando clipe {indice}/{len(selecionados)}: {titulo}",
+            flush=True
+        )
 
         try:
             analise = analisar_clipe(clipe)
@@ -289,16 +297,22 @@ def analisar_com_ia():
 
             print(
                 "Potencial:",
-                analise.get("potencial", "Não informado")
+                analise.get("potencial", "Não informado"),
+                flush=True
             )
 
             print(
                 "Conteúdo impróprio:",
-                analise.get("conteudo_improprio", "Não informado")
+                analise.get("conteudo_improprio", "Não informado"),
+                flush=True
             )
 
         except Exception as erro:
-            print("Erro na análise:", erro)
+            print(
+                "Erro ao analisar este clipe:",
+                str(erro),
+                flush=True
+            )
 
     salvar("analise_ia.json", resultados)
 
@@ -311,13 +325,13 @@ def analisar_com_ia():
 
     salvar("status.json", status_dados)
 
-    print("Análise com Gemini concluída!")
-    print("Clipes analisados:", len(resultados))
-    print("Arquivo salvo: dados/analise_ia.json")
+    print("Análise com Gemini finalizada!", flush=True)
+    print("Total analisado:", len(resultados))
+    print("Arquivo: dados/analise_ia.json")
 
 
 # ==========================================
-# MOSTRAR STATUS
+# STATUS
 # ==========================================
 
 def status():
@@ -343,7 +357,6 @@ def teste():
 
     if transmissoes:
         print("Teste concluído com sucesso.")
-
     else:
         print("Nenhuma transmissão encontrada.")
 
@@ -394,7 +407,7 @@ if __name__ == "__main__":
         comandos[comando]()
 
     except Exception as erro:
-        print("ERRO:", erro)
+        print("ERRO:", erro, flush=True)
 
         salvar("status.json", {
             "situacao": "Erro",
