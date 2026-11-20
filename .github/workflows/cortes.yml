@@ -39,7 +39,7 @@ jobs:
         run: |
           python main.py buscar
 
-                - name: Buscar clipes
+      - name: Buscar clipes
         env:
           TWITCH_CLIENT_ID: ${{ secrets.TWITCH_CLIENT_ID }}
           TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
@@ -54,6 +54,6 @@ jobs:
           git add dados/
 
           if ! git diff --cached --quiet; then
-            git commit -m "Atualiza descoberta de transmissões"
+            git commit -m "Atualiza transmissões e clipes"
             git push
           fi
