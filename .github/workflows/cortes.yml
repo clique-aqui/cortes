@@ -1,5 +1,5 @@
 
-name: Cortes AI
+name: Cortes AI V2
 
 on:
   workflow_dispatch:
