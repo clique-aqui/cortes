@@ -1,6 +1,9 @@
 {
-  "ultima_busca": "2026-11-20T20:39:16.554961+00:00",
+  "ultima_busca": "2026-11-20T21:15:59.871108+00:00",
   "plataforma": "Twitch",
   "transmissoes_encontradas": 100,
-  "situacao": "Busca concluída"
+  "situacao": "Busca concluída",
+  "espectadores_totais": 1361280,
+  "ultima_analise_ia": "2026-11-20T21:16:02.705402+00:00",
+  "clipes_analisados_ia": 0
 }
