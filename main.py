@@ -144,12 +144,16 @@ def selecionar_melhores_clipes():
         return
 
     agora = datetime.now(timezone.utc)
-    melhores = []
 
     maior_visualizacao = max(
         (clipe.get("visualizacoes", 0) for clipe in clipes),
         default=1
     )
+
+    if maior_visualizacao <= 0:
+        maior_visualizacao = 1
+
+    melhores = []
 
     for clipe in clipes:
         visualizacoes = clipe.get("visualizacoes", 0)
@@ -159,11 +163,13 @@ def selecionar_melhores_clipes():
             criado = datetime.fromisoformat(
                 clipe["criado_em"].replace("Z", "+00:00")
             )
+
             horas = max(
                 (agora - criado).total_seconds() / 3600,
                 0
             )
-        except (ValueError, KeyError, TypeError):
+
+        except (ValueError, KeyError, TypeError, AttributeError):
             horas = 72
 
         pontos_visualizacao = (
@@ -214,7 +220,6 @@ def selecionar_melhores_clipes():
         )
 
 
-
 def status():
     dados = carregar("status.json", {})
     print(json.dumps(dados, indent=2, ensure_ascii=False))
@@ -237,6 +242,7 @@ CORTES AI
 Comandos disponíveis:
 python main.py buscar
 python main.py clipes
+python main.py melhores
 python main.py teste
 python main.py status
 python main.py ajuda
@@ -246,14 +252,13 @@ python main.py ajuda
 if __name__ == "__main__":
     comando = sys.argv[1] if len(sys.argv) > 1 else "ajuda"
 
-   comandos = {
-    "buscar": executar_busca,
-    "clipes": executar_busca_clipes,
-    "melhores": selecionar_melhores_clipes,
-    "teste": teste,
-    "status": status,
-    "ajuda": ajuda
-}
+    comandos = {
+        "buscar": executar_busca,
+        "clipes": executar_busca_clipes,
+        "melhores": selecionar_melhores_clipes,
+        "teste": teste,
+        "status": status,
+        "ajuda": ajuda
     }
 
     if comando not in comandos:
