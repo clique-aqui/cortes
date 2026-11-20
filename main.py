@@ -134,6 +134,87 @@ def executar_busca_clipes():
         )
 
 
+def selecionar_melhores_clipes():
+    print("Analisando potencial dos clipes...")
+
+    clipes = carregar("clipes.json", [])
+
+    if not clipes:
+        print("Nenhum clipe encontrado.")
+        return
+
+    agora = datetime.now(timezone.utc)
+    melhores = []
+
+    maior_visualizacao = max(
+        (clipe.get("visualizacoes", 0) for clipe in clipes),
+        default=1
+    )
+
+    for clipe in clipes:
+        visualizacoes = clipe.get("visualizacoes", 0)
+        duracao = clipe.get("duracao", 0)
+
+        try:
+            criado = datetime.fromisoformat(
+                clipe["criado_em"].replace("Z", "+00:00")
+            )
+            horas = max(
+                (agora - criado).total_seconds() / 3600,
+                0
+            )
+        except (ValueError, KeyError, TypeError):
+            horas = 72
+
+        pontos_visualizacao = (
+            visualizacoes / maior_visualizacao
+        ) * 50
+
+        pontos_recencia = max(
+            0,
+            30 * (1 - horas / 72)
+        )
+
+        if 15 <= duracao <= 60:
+            pontos_duracao = 20
+        elif 10 <= duracao < 15:
+            pontos_duracao = 15
+        else:
+            pontos_duracao = 5
+
+        pontuacao = round(
+            pontos_visualizacao +
+            pontos_recencia +
+            pontos_duracao,
+            2
+        )
+
+        resultado = clipe.copy()
+        resultado["pontuacao"] = pontuacao
+
+        melhores.append(resultado)
+
+    melhores.sort(
+        key=lambda item: item["pontuacao"],
+        reverse=True
+    )
+
+    salvar("melhores_clipes.json", melhores)
+
+    print("Análise concluída!")
+    print("Clipes analisados:", len(melhores))
+
+    for clipe in melhores[:10]:
+        print(
+            clipe["canal"],
+            "|",
+            clipe["titulo"],
+            "| Pontuação:",
+            clipe["pontuacao"]
+        )
+
+
+
 def status():
     dados = carregar("status.json", {})
     print(json.dumps(dados, indent=2, ensure_ascii=False))
@@ -165,12 +246,14 @@ python main.py ajuda
 if __name__ == "__main__":
     comando = sys.argv[1] if len(sys.argv) > 1 else "ajuda"
 
-    comandos = {
-        "buscar": executar_busca,
-        "clipes": executar_busca_clipes,
-        "teste": teste,
-        "status": status,
-        "ajuda": ajuda
+   comandos = {
+    "buscar": executar_busca,
+    "clipes": executar_busca_clipes,
+    "melhores": selecionar_melhores_clipes,
+    "teste": teste,
+    "status": status,
+    "ajuda": ajuda
+}
     }
 
     if comando not in comandos:
