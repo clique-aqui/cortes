@@ -3,394 +3,292 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cortes AI | Lives ao Vivo</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cortes AI</title>
 <style>
 *{box-sizing:border-box}
-body{
-    margin:0;
-    background:#090b12;
-    color:#f5f5f5;
-    font-family:Arial,sans-serif;
-}
-header{
-    padding:24px 5%;
-    background:#111521;
-    border-bottom:1px solid #252b3a;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:15px;
-}
-.logo{font-size:25px;font-weight:bold}
+body{margin:0;background:#090b12;color:#f5f5f5;font-family:Arial,sans-serif}
+header{padding:22px 5%;background:#111521;border-bottom:1px solid #252b3a;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:24px;font-weight:bold}
 .logo span{color:#9147ff}
-.status{color:#42e68b;font-size:13px}
+.status{color:#42e68b;font-size:12px}
 main{padding:25px 5%}
-.stats{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:15px;
-    margin-bottom:28px;
-}
-.stat{
-    background:#151a27;
-    border:1px solid #252b3a;
-    border-radius:13px;
-    padding:20px;
-}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:30px}
+.stat,.live,.list-box{background:#151a27;border:1px solid #292f40;border-radius:12px}
+.stat{padding:18px}
 .stat small{color:#9ba4b8}
-.stat strong{
-    display:block;
-    font-size:30px;
-    margin-top:8px;
-}
-h2{margin:28px 0 18px;font-size:21px}
-.lives{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-    gap:20px;
-}
-.live{
-    background:#151a27;
-    border:1px solid #292f40;
-    border-radius:14px;
-    overflow:hidden;
-}
-.player{
-    width:100%;
-    aspect-ratio:16/9;
-    background:#000;
-}
-.player iframe{
-    width:100%;
-    height:100%;
-    border:0;
-}
-.info{padding:15px}
-.top{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-}
-.live-badge{
-    background:#e52b45;
-    color:white;
-    padding:5px 9px;
-    border-radius:5px;
-    font-size:11px;
-    font-weight:bold;
-}
-.channel{font-size:18px;font-weight:bold}
-.title{
-    color:#aab2c4;
-    font-size:13px;
-    margin:10px 0;
-    line-height:1.5;
-}
-.details{
-    display:flex;
-    justify-content:space-between;
-    color:#aab2c4;
-    font-size:13px;
-    gap:10px;
-}
+.stat strong{display:block;font-size:27px;margin-top:8px}
+h2{font-size:20px;margin:28px 0 16px}
+.sub{color:#929bad;font-size:12px;margin-top:-9px;margin-bottom:16px}
+.lives{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.live{overflow:hidden}
+.player{width:100%;aspect-ratio:16/9;background:#000}
+.player iframe{width:100%;height:100%;border:0}
+.info{padding:13px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.channel{font-weight:bold;font-size:16px}
+.badge{background:#df2945;border-radius:4px;padding:5px 8px;font-size:10px;font-weight:bold}
+.title{font-size:12px;color:#aab2c4;margin:9px 0}
+.details{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:#aab2c4}
 .viewers{color:#42e68b;font-weight:bold}
-.watch{
-    display:block;
-    text-align:center;
-    background:#9147ff;
-    color:white;
-    text-decoration:none;
-    padding:11px;
-    margin-top:15px;
-    border-radius:8px;
-    font-weight:bold;
-}
-.watch:hover{background:#762ce5}
-.empty{
-    color:#9ba4b8;
-    background:#151a27;
-    padding:30px;
-    border-radius:12px;
-    text-align:center;
-}
-footer{
-    padding:25px;
-    text-align:center;
-    color:#747d91;
-    font-size:12px;
-}
-@media(max-width:500px){
-    main{padding:18px 4%}
-    .lives{grid-template-columns:1fr}
+.watch{display:block;text-align:center;margin-top:12px;padding:10px;background:#9147ff;color:white;text-decoration:none;border-radius:7px;font-size:13px}
+.list-box{overflow:hidden}
+.list-row{display:grid;grid-template-columns:45px 1fr auto;gap:12px;align-items:center;padding:13px 16px;border-bottom:1px solid #292f40}
+.list-row:last-child{border-bottom:0}
+.rank{color:#929bad;font-weight:bold}
+.list-name{font-weight:bold;font-size:14px}
+.list-category{font-size:11px;color:#929bad;margin-top:4px}
+.list-viewers{font-size:12px;color:#42e68b;font-weight:bold}
+.empty{padding:25px;text-align:center;color:#929bad;background:#151a27;border-radius:10px}
+footer{text-align:center;color:#747d91;padding:25px;font-size:12px}
+@media(max-width:650px){
+ .stats{grid-template-columns:1fr 1fr}
+ .stats .stat:last-child{grid-column:1/-1}
+ .lives{grid-template-columns:1fr}
+ main{padding:18px 4%}
+ .stat strong{font-size:22px}
 }
 </style>
 </head>
-
 <body>
-
 <header>
-    <div class="logo">CORTES <span>AI</span></div>
-    <div class="status">● SISTEMA ONLINE</div>
+ <div class="logo">CORTES <span>AI</span></div>
+ <div class="status">● SISTEMA ONLINE</div>
 </header>
 
 <main>
+ <section class="stats">
+  <div class="stat">
+   <small>Lives encontradas</small>
+   <strong id="totalLives">0</strong>
+  </div>
+  <div class="stat">
+   <small>Espectadores totais</small>
+   <strong id="totalViewers">0</strong>
+  </div>
+  <div class="stat">
+   <small>Atualização</small>
+   <strong id="lastUpdate">--:--:--</strong>
+  </div>
+ </section>
 
-    <div class="stats">
-        <div class="stat">
-            <small>Lives encontradas</small>
-            <strong id="totalLives">0</strong>
-        </div>
+ <h2>🔴 TOP 5 — TRANSMISSÕES AO VIVO</h2>
+ <div class="sub">As cinco lives com maior número de espectadores.</div>
+ <section class="lives" id="topLives">
+  <div class="empty">Carregando transmissões...</div>
+ </section>
 
-        <div class="stat">
-            <small>Espectadores ao vivo</small>
-            <strong id="totalViewers">0</strong>
-        </div>
-
-        <div class="stat">
-            <small>Última atualização</small>
-            <strong id="lastUpdate" style="font-size:18px">--:--:--</strong>
-        </div>
-    </div>
-
-    <h2>🔴 Transmissões ao vivo</h2>
-
-    <div id="lives" class="lives">
-        <div class="empty">Carregando transmissões...</div>
-    </div>
-
+ <h2>OUTRAS TRANSMISSÕES</h2>
+ <div class="sub">Lista leve, sem players de vídeo, ordenada por espectadores.</div>
+ <section class="list-box" id="otherLives">
+  <div class="empty">Carregando lista...</div>
+ </section>
 </main>
 
-<footer>
-    CORTES AI · Painel de monitoramento de transmissões
-</footer>
+<footer>CORTES AI · Monitoramento de transmissões</footer>
 
 <script>
 const PARENT = "clique-aqui.github.io";
 const REFRESH_TIME = 60000;
 
-const livesContainer = document.getElementById("lives");
+const topContainer = document.getElementById("topLives");
+const otherContainer = document.getElementById("otherLives");
 
-let livesAtuais = new Map();
+let players = new Map();
 
-function numero(valor){
-    return Number(valor || 0).toLocaleString("pt-BR");
+function formatar(n){
+ return Number(n || 0).toLocaleString("pt-BR");
 }
 
-function criarLive(live){
-
-    const canal = live.canal || live.user_name || "";
-    const canalId = String(canal).toLowerCase();
-
-    if(!canalId) return null;
-
-    const card = document.createElement("article");
-    card.className = "live";
-    card.dataset.canal = canalId;
-
-    const player = document.createElement("div");
-    player.className = "player";
-
-    const iframe = document.createElement("iframe");
-
-    iframe.src =
-        "https://player.twitch.tv/?channel=" +
-        encodeURIComponent(canalId) +
-        "&parent=" + PARENT +
-        "&muted=true&autoplay=true";
-
-    iframe.allow = "autoplay; fullscreen";
-    iframe.allowFullscreen = true;
-    iframe.loading = "lazy";
-    iframe.title = "Transmissão de " + canal;
-
-    player.appendChild(iframe);
-
-    const info = document.createElement("div");
-    info.className = "info";
-
-    const top = document.createElement("div");
-    top.className = "top";
-
-    const nome = document.createElement("div");
-    nome.className = "channel";
-    nome.textContent = canal;
-
-    const badge = document.createElement("span");
-    badge.className = "live-badge";
-    badge.textContent = "AO VIVO";
-
-    top.appendChild(nome);
-    top.appendChild(badge);
-
-    const titulo = document.createElement("div");
-    titulo.className = "title";
-    titulo.textContent = live.titulo || "Transmissão ao vivo";
-
-    const detalhes = document.createElement("div");
-    detalhes.className = "details";
-
-    const categoria = document.createElement("span");
-    categoria.textContent = live.categoria || "Sem categoria";
-
-    const espectadores = document.createElement("span");
-    espectadores.className = "viewers";
-    espectadores.textContent =
-        "● " + numero(live.espectadores) + " espectadores";
-
-    detalhes.appendChild(categoria);
-    detalhes.appendChild(espectadores);
-
-    const link = document.createElement("a");
-    link.className = "watch";
-    link.href = "https://www.twitch.tv/" + encodeURIComponent(canalId);
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-    link.textContent = "Abrir na Twitch";
-
-    info.appendChild(top);
-    info.appendChild(titulo);
-    info.appendChild(detalhes);
-    info.appendChild(link);
-
-    card.appendChild(player);
-    card.appendChild(info);
-
-    return {
-        card,
-        espectadores,
-        titulo,
-        categoria
-    };
+function obterCanal(live){
+ return String(live.canal || live.user_name || "").toLowerCase();
 }
 
-async function buscarArquivo(nome){
+function criarCard(live){
+ const canal = obterCanal(live);
+ const card = document.createElement("article");
+ card.className = "live";
 
-    const resposta = await fetch(
-        "dados/" + nome + "?t=" + Date.now(),
-        {cache:"no-store"}
-    );
+ const player = document.createElement("div");
+ player.className = "player";
 
-    if(!resposta.ok) return [];
+ const iframe = document.createElement("iframe");
+ iframe.src = "https://player.twitch.tv/?channel=" +
+  encodeURIComponent(canal) +
+  "&parent=" + PARENT +
+  "&muted=true&autoplay=true";
 
-    return await resposta.json();
+ iframe.allow = "autoplay; fullscreen";
+ iframe.allowFullscreen = true;
+ iframe.loading = "lazy";
+ iframe.title = "Live de " + canal;
+
+ player.appendChild(iframe);
+
+ const info = document.createElement("div");
+ info.className = "info";
+
+ const top = document.createElement("div");
+ top.className = "top";
+
+ const nome = document.createElement("div");
+ nome.className = "channel";
+ nome.textContent = live.canal || canal;
+
+ const badge = document.createElement("span");
+ badge.className = "badge";
+ badge.textContent = "AO VIVO";
+
+ top.append(nome,badge);
+
+ const titulo = document.createElement("div");
+ titulo.className = "title";
+ titulo.textContent = live.titulo || "Transmissão ao vivo";
+
+ const detalhes = document.createElement("div");
+ detalhes.className = "details";
+
+ const categoria = document.createElement("span");
+ categoria.textContent = live.categoria || "Sem categoria";
+
+ const viewers = document.createElement("span");
+ viewers.className = "viewers";
+
+ detalhes.append(categoria,viewers);
+
+ const link = document.createElement("a");
+ link.className = "watch";
+ link.href = "https://www.twitch.tv/" + encodeURIComponent(canal);
+ link.target = "_blank";
+ link.rel = "noopener noreferrer";
+ link.textContent = "Abrir na Twitch";
+
+ info.append(top,titulo,detalhes,link);
+ card.append(player,info);
+
+ return {card,viewers,titulo,categoria};
+}
+
+async function carregarLives(){
+ const resposta = await fetch("dados/transmissoes.json?t="+Date.now(),{
+  cache:"no-store"
+ });
+ if(!resposta.ok) throw new Error("Não foi possível carregar as lives");
+ const dados = await resposta.json();
+ return Array.isArray(dados) ? dados : [];
+}
+
+function atualizarCard(item,live){
+ item.viewers.textContent = "● " + formatar(live.espectadores) + " espectadores";
+ item.titulo.textContent = live.titulo || "Transmissão ao vivo";
+ item.categoria.textContent = live.categoria || "Sem categoria";
+}
+
+function criarLinha(live,indice){
+ const linha = document.createElement("div");
+ linha.className = "list-row";
+
+ const rank = document.createElement("div");
+ rank.className = "rank";
+ rank.textContent = "#" + (indice + 6);
+
+ const nomeArea = document.createElement("div");
+ const nome = document.createElement("div");
+ nome.className = "list-name";
+ nome.textContent = live.canal || live.user_name || "Canal";
+
+ const categoria = document.createElement("div");
+ categoria.className = "list-category";
+ categoria.textContent = live.categoria || "Sem categoria";
+
+ nomeArea.append(nome,categoria);
+
+ const espectadores = document.createElement("div");
+ espectadores.className = "list-viewers";
+ espectadores.textContent = formatar(live.espectadores) + " espectadores";
+
+ linha.append(rank,nomeArea,espectadores);
+ return linha;
 }
 
 async function atualizar(){
+ try{
+  const dados = await carregarLives();
 
-    try{
+  // Ordena todas as lives por espectadores.
+  const ordenadas = dados.slice().sort(
+   (a,b) => Number(b.espectadores || 0) - Number(a.espectadores || 0)
+  );
 
-        const dados = await buscarArquivo("transmissoes.json");
+  const top = ordenadas.slice(0,5);
+  const restantes = ordenadas.slice(5);
 
-        const lista = Array.isArray(dados) ? dados : [];
+  const idsTop = new Set(top.map(obterCanal));
 
-        const novasLives = new Map();
+  // Remove players que saíram do Top 5.
+  for(const [id,item] of players){
+   if(!idsTop.has(id)){
+    item.card.remove();
+    players.delete(id);
+   }
+  }
 
-        let totalEspectadores = 0;
+  // Atualiza ou cria somente os cinco players.
+  top.forEach(live => {
+   const id = obterCanal(live);
+   if(!id) return;
 
-        lista.forEach(live => {
+   let item = players.get(id);
 
-            const canal = live.canal || live.user_name || "";
-            const id = String(canal).toLowerCase();
+   if(!item){
+    item = criarCard(live);
+    players.set(id,item);
+   }
 
-            if(!id) return;
+   atualizarCard(item,live);
+   topContainer.appendChild(item.card);
+  });
 
-            const espectadores = Number(live.espectadores || 0);
+  // Lista compacta das demais transmissões.
+  const fragment = document.createDocumentFragment();
+  restantes.forEach((live,index) => {
+   fragment.appendChild(criarLinha(live,index));
+  });
 
-            totalEspectadores += espectadores;
+  otherContainer.replaceChildren(fragment);
 
-            let item = livesAtuais.get(id);
+  if(restantes.length === 0){
+   otherContainer.innerHTML =
+    '<div class="empty">Não existem outras lives encontradas.</div>';
+  }
 
-            if(item){
+  document.getElementById("totalLives").textContent =
+   formatar(ordenadas.length);
 
-                // Atualiza os dados sem reiniciar o player.
-                item.espectadores.textContent =
-                    "● " + numero(espectadores) + " espectadores";
+  const total = ordenadas.reduce(
+   (soma,live) => soma + Number(live.espectadores || 0),0
+  );
 
-                item.titulo.textContent =
-                    live.titulo || "Transmissão ao vivo";
+  document.getElementById("totalViewers").textContent = formatar(total);
+  document.getElementById("lastUpdate").textContent =
+   new Date().toLocaleTimeString("pt-BR");
 
-                item.categoria.textContent =
-                    live.categoria || "Sem categoria";
+  if(ordenadas.length === 0){
+   topContainer.innerHTML =
+    '<div class="empty">Nenhuma live encontrada.</div>';
+  }
 
-            }else{
-
-                item = criarLive(live);
-
-            }
-
-            if(item){
-                novasLives.set(id, item);
-            }
-
-        });
-
-        // Remove canais que não estão mais ao vivo.
-        livesAtuais.forEach((item, id) => {
-            if(!novasLives.has(id)){
-                item.card.remove();
-            }
-        });
-
-        // Adiciona novas transmissões.
-        novasLives.forEach((item, id) => {
-            if(!item.card.isConnected){
-                livesContainer.appendChild(item.card);
-            }
-        });
-
-        livesAtuais = novasLives;
-
-        // Ordena os cards pelos espectadores.
-        const ordenadas = [...livesAtuais.entries()].sort(
-            (a,b) => {
-                const av = Number(
-                    a[1].espectadores.textContent.replace(/\D/g,"")
-                );
-                const bv = Number(
-                    b[1].espectadores.textContent.replace(/\D/g,"")
-                );
-                return bv-av;
-            }
-        );
-
-        ordenadas.forEach(([id,item]) => {
-            livesContainer.appendChild(item.card);
-        });
-
-        document.getElementById("totalLives").textContent =
-            numero(lista.length);
-
-        document.getElementById("totalViewers").textContent =
-            numero(totalEspectadores);
-
-        document.getElementById("lastUpdate").textContent =
-            new Date().toLocaleTimeString("pt-BR");
-
-        if(lista.length === 0){
-            livesContainer.innerHTML =
-                '<div class="empty">Nenhuma transmissão encontrada no momento.</div>';
-        }
-
-    }catch(erro){
-
-        console.error("Erro ao atualizar painel:", erro);
-
-        if(livesAtuais.size === 0){
-            livesContainer.innerHTML =
-                '<div class="empty">Não foi possível carregar as transmissões.</div>';
-        }
-
-    }
+ }catch(erro){
+  console.error(erro);
+  if(players.size === 0){
+   topContainer.innerHTML =
+    '<div class="empty">Erro ao carregar as transmissões.</div>';
+  }
+ }
 }
 
 atualizar();
-setInterval(atualizar, REFRESH_TIME);
-
+setInterval(atualizar,REFRESH_TIME);
 </script>
-
 </body>
 </html>
