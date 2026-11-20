@@ -4,7 +4,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-from plataformas.twitch import descobrir
+from plataformas.twitch import descobrir, Twitch
 
 BASE = Path(__file__).parent
 DADOS = BASE / "dados"
@@ -71,6 +71,72 @@ def executar_busca():
 
     return transmissões
 
+def executar_busca_clipes():
+    print("Iniciando busca de clipes da Twitch...")
+
+    transmissoes = carregar("transmissoes.json", [])
+
+    if not transmissoes:
+        print("Nenhuma transmissão encontrada.")
+        print("Execute primeiro: python main.py buscar")
+        return
+
+    twitch = Twitch()
+
+    # Começa testando os 10 canais com mais espectadores
+    canais = transmissoes[:10]
+
+    todos_clipes = []
+
+    for live in canais:
+        canal = live.get("canal", "Desconhecido")
+        canal_id = live.get("canal_id")
+
+        if not canal_id:
+            continue
+
+        print("Buscando clipes de:", canal)
+
+        try:
+            clipes = twitch.buscar_clipes(
+                broadcaster_id=canal_id,
+                dias=3,
+                limite=10
+            )
+
+            for clipe in clipes:
+                todos_clipes.append({
+                    "plataforma": "twitch",
+                    "canal": canal,
+                    "titulo": clipe.get("title"),
+                    "url": clipe.get("url"),
+                    "visualizacoes": clipe.get("view_count", 0),
+                    "criado_em": clipe.get("created_at"),
+                    "duracao": clipe.get("duration")
+                })
+
+        except Exception as erro:
+            print("Erro ao buscar clipes de", canal, ":", erro)
+
+    todos_clipes.sort(
+        key=lambda item: item.get("visualizacoes", 0),
+        reverse=True
+    )
+
+    salvar("clipes.json", todos_clipes)
+
+    print("Busca concluída!")
+    print("Total de clipes encontrados:", len(todos_clipes))
+
+    for clipe in todos_clipes[:10]:
+        print(
+            clipe["canal"],
+            "|",
+            clipe["titulo"],
+            "|",
+            clipe["visualizacoes"],
+            "visualizações"
+        )
 
 def status():
     dados = carregar("status.json", {})
@@ -106,12 +172,13 @@ dos direitos de uso e do editor.
 if __name__ == "__main__":
     comando = sys.argv[1] if len(sys.argv) > 1 else "ajuda"
 
-    comandos = {
-        "buscar": executar_busca,
-        "teste": teste,
-        "status": status,
-        "ajuda": ajuda
-    }
+comandos = {
+    "buscar": executar_busca,
+    "clipes": executar_busca_clipes,
+    "teste": teste,
+    "status": status,
+    "ajuda": ajuda
+}
 
     if comando not in comandos:
         ajuda()
