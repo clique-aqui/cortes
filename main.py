@@ -219,6 +219,42 @@ def selecionar_melhores_clipes():
             clipe["pontuacao"]
         )
 
+def analisar_com_ia():
+    print("Iniciando análise com Gemini...")
+
+    from ia.gemini import analisar_clipe
+
+    clipes = carregar("clipes.json", [])
+
+    if not clipes:
+        print("Nenhum clipe encontrado.")
+        return
+
+    resultados = []
+
+    # Primeiro teste: analisar somente 10 clipes
+    for clipe in clipes[:10]:
+        print("Analisando:", clipe.get("titulo"))
+
+        try:
+            analise = analisar_clipe(clipe)
+
+            resultado = clipe.copy()
+            resultado["analise_ia"] = analise
+
+            resultados.append(resultado)
+
+            print("Potencial:", analise.get("potencial"))
+
+        except Exception as erro:
+            print("Erro na análise:", erro)
+
+    salvar("analise_ia.json", resultados)
+
+    print("Análise concluída!")
+    print("Clipes analisados:", len(resultados))
+    print("Arquivo salvo: dados/analise_ia.json")
+
 
 def status():
     dados = carregar("status.json", {})
@@ -252,14 +288,16 @@ python main.py ajuda
 if __name__ == "__main__":
     comando = sys.argv[1] if len(sys.argv) > 1 else "ajuda"
 
-    comandos = {
-        "buscar": executar_busca,
-        "clipes": executar_busca_clipes,
-        "melhores": selecionar_melhores_clipes,
-        "teste": teste,
-        "status": status,
-        "ajuda": ajuda
-    }
+  comandos = {
+    "buscar": executar_busca,
+    "clipes": executar_busca_clipes,
+    "melhores": selecionar_melhores_clipes,
+    "ia": analisar_com_ia,
+    "teste": teste,
+    "status": status,
+    "ajuda": ajuda
+}
+    
 
     if comando not in comandos:
         ajuda()
