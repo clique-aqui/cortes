@@ -6,14 +6,20 @@ from pathlib import Path
 
 from plataformas.twitch import descobrir, Twitch
 
+
 BASE = Path(__file__).parent
 DADOS = BASE / "dados"
 
 DADOS.mkdir(exist_ok=True)
 
 
+# ==========================================
+# FUNCOES DE ARQUIVOS
+# ==========================================
+
 def salvar(nome, conteudo):
     caminho = DADOS / nome
+
     caminho.write_text(
         json.dumps(conteudo, ensure_ascii=False, indent=2),
         encoding="utf-8"
@@ -27,10 +33,17 @@ def carregar(nome, padrao):
         return padrao
 
     try:
-        return json.loads(caminho.read_text(encoding="utf-8"))
+        return json.loads(
+            caminho.read_text(encoding="utf-8")
+        )
+
     except (json.JSONDecodeError, OSError):
         return padrao
 
+
+# ==========================================
+# DESCOBRIR TRANSMISSOES
+# ==========================================
 
 def executar_busca():
     print("Iniciando descoberta mundial...")
@@ -59,16 +72,20 @@ def executar_busca():
 
     for live in transmissoes[:10]:
         print(
-            live["canal"],
+            live.get("canal"),
             "|",
-            live["categoria"],
+            live.get("categoria"),
             "|",
-            live["espectadores"],
+            live.get("espectadores", 0),
             "espectadores"
         )
 
     return transmissoes
 
+
+# ==========================================
+# BUSCAR CLIPES
+# ==========================================
 
 def executar_busca_clipes():
     print("Iniciando busca de clipes da Twitch...")
@@ -80,6 +97,7 @@ def executar_busca_clipes():
         return
 
     twitch = Twitch()
+
     canais = transmissoes[:10]
     todos_clipes = []
 
@@ -111,7 +129,12 @@ def executar_busca_clipes():
                 })
 
         except Exception as erro:
-            print("Erro ao buscar clipes de", canal, ":", erro)
+            print(
+                "Erro ao buscar clipes de",
+                canal,
+                ":",
+                erro
+            )
 
     todos_clipes.sort(
         key=lambda item: item.get("visualizacoes", 0),
@@ -125,14 +148,18 @@ def executar_busca_clipes():
 
     for clipe in todos_clipes[:10]:
         print(
-            clipe["canal"],
+            clipe.get("canal"),
             "|",
-            clipe["titulo"],
+            clipe.get("titulo"),
             "|",
-            clipe["visualizacoes"],
+            clipe.get("visualizacoes", 0),
             "visualizações"
         )
 
+
+# ==========================================
+# SELECIONAR MELHORES CLIPES
+# ==========================================
 
 def selecionar_melhores_clipes():
     print("Analisando potencial dos clipes...")
@@ -146,7 +173,10 @@ def selecionar_melhores_clipes():
     agora = datetime.now(timezone.utc)
 
     maior_visualizacao = max(
-        (clipe.get("visualizacoes", 0) for clipe in clipes),
+        (
+            clipe.get("visualizacoes", 0)
+            for clipe in clipes
+        ),
         default=1
     )
 
@@ -169,7 +199,12 @@ def selecionar_melhores_clipes():
                 0
             )
 
-        except (ValueError, KeyError, TypeError, AttributeError):
+        except (
+            ValueError,
+            KeyError,
+            TypeError,
+            AttributeError
+        ):
             horas = 72
 
         pontos_visualizacao = (
@@ -183,15 +218,17 @@ def selecionar_melhores_clipes():
 
         if 15 <= duracao <= 60:
             pontos_duracao = 20
+
         elif 10 <= duracao < 15:
             pontos_duracao = 15
+
         else:
             pontos_duracao = 5
 
         pontuacao = round(
-            pontos_visualizacao +
-            pontos_recencia +
-            pontos_duracao,
+            pontos_visualizacao
+            + pontos_recencia
+            + pontos_duracao,
             2
         )
 
@@ -212,12 +249,17 @@ def selecionar_melhores_clipes():
 
     for clipe in melhores[:10]:
         print(
-            clipe["canal"],
+            clipe.get("canal"),
             "|",
-            clipe["titulo"],
+            clipe.get("titulo"),
             "| Pontuação:",
-            clipe["pontuacao"]
+            clipe.get("pontuacao")
         )
+
+
+# ==========================================
+# ANALISAR CLIPES COM GEMINI
+# ==========================================
 
 def analisar_com_ia():
     print("Iniciando análise com Gemini...")
@@ -232,9 +274,10 @@ def analisar_com_ia():
 
     resultados = []
 
-    # Primeiro teste: analisar somente 10 clipes
     for clipe in clipes[:10]:
-        print("Analisando:", clipe.get("titulo"))
+        titulo = clipe.get("titulo", "Sem título")
+
+        print("Analisando:", titulo)
 
         try:
             analise = analisar_clipe(clipe)
@@ -244,60 +287,104 @@ def analisar_com_ia():
 
             resultados.append(resultado)
 
-            print("Potencial:", analise.get("potencial"))
+            print(
+                "Potencial:",
+                analise.get("potencial", "Não informado")
+            )
+
+            print(
+                "Conteúdo impróprio:",
+                analise.get("conteudo_improprio", "Não informado")
+            )
 
         except Exception as erro:
             print("Erro na análise:", erro)
 
     salvar("analise_ia.json", resultados)
 
-    print("Análise concluída!")
+    status_dados = carregar("status.json", {})
+
+    status_dados.update({
+        "ultima_analise_ia": datetime.now(timezone.utc).isoformat(),
+        "clipes_analisados_ia": len(resultados)
+    })
+
+    salvar("status.json", status_dados)
+
+    print("Análise com Gemini concluída!")
     print("Clipes analisados:", len(resultados))
     print("Arquivo salvo: dados/analise_ia.json")
 
 
+# ==========================================
+# MOSTRAR STATUS
+# ==========================================
+
 def status():
     dados = carregar("status.json", {})
-    print(json.dumps(dados, indent=2, ensure_ascii=False))
 
+    print(
+        json.dumps(
+            dados,
+            indent=2,
+            ensure_ascii=False
+        )
+    )
+
+
+# ==========================================
+# TESTE
+# ==========================================
 
 def teste():
     print("Executando teste de descoberta...")
+
     transmissoes = executar_busca()
 
     if transmissoes:
         print("Teste concluído com sucesso.")
+
     else:
         print("Nenhuma transmissão encontrada.")
 
+
+# ==========================================
+# AJUDA
+# ==========================================
 
 def ajuda():
     print("""
 CORTES AI
 
 Comandos disponíveis:
+
 python main.py buscar
 python main.py clipes
 python main.py melhores
+python main.py ia
 python main.py teste
 python main.py status
 python main.py ajuda
 """)
 
 
+# ==========================================
+# EXECUCAO PRINCIPAL
+# ==========================================
+
 if __name__ == "__main__":
+
     comando = sys.argv[1] if len(sys.argv) > 1 else "ajuda"
 
-  comandos = {
-    "buscar": executar_busca,
-    "clipes": executar_busca_clipes,
-    "melhores": selecionar_melhores_clipes,
-    "ia": analisar_com_ia,
-    "teste": teste,
-    "status": status,
-    "ajuda": ajuda
-}
-    
+    comandos = {
+        "buscar": executar_busca,
+        "clipes": executar_busca_clipes,
+        "melhores": selecionar_melhores_clipes,
+        "ia": analisar_com_ia,
+        "teste": teste,
+        "status": status,
+        "ajuda": ajuda
+    }
 
     if comando not in comandos:
         ajuda()
