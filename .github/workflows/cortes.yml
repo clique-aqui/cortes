@@ -29,32 +29,27 @@ jobs:
           python-version: "3.12"
 
       - name: Instalar bibliotecas
-        run: |
-          pip install -r requirements.txt
+        run: pip install -r requirements.txt
 
       - name: Descobrir transmissões
         env:
           TWITCH_CLIENT_ID: ${{ secrets.TWITCH_CLIENT_ID }}
           TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
-        run: |
-          python main.py buscar
+        run: python main.py buscar
 
       - name: Buscar clipes
         env:
           TWITCH_CLIENT_ID: ${{ secrets.TWITCH_CLIENT_ID }}
           TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
-        run: |
-          python main.py clipes
+        run: python main.py clipes
 
       - name: Selecionar melhores clipes
-        run: |
-          python main.py melhores
+        run: python main.py melhores
 
-                - name: Analisar clipes com Gemini
+      - name: Analisar clipes com Gemini
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: |
-          python main.py ia
+        run: python main.py ia
 
       - name: Salvar resultados
         run: |
@@ -64,6 +59,6 @@ jobs:
           git add dados/
 
           if ! git diff --cached --quiet; then
-            git commit -m "Atualiza transmissões e clipes"
+            git commit -m "Atualiza transmissões e análises de IA"
             git push
           fi
