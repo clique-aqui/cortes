@@ -60,6 +60,7 @@ jobs:
       - name: Analisar clipes com Gemini
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_DAILY_LIMIT: "15"
         run: python main.py ia
 
       - name: Preparar e publicar clipes aprovados
