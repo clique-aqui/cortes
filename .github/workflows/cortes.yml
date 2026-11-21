@@ -3,6 +3,12 @@ name: Cortes AI V2
 
 on:
   workflow_dispatch:
+    inputs:
+      teste_privado:
+        description: "Enviar 1 clipe como PRIVADO para testar"
+        type: boolean
+        required: false
+        default: false
 
   schedule:
     - cron: "*/15 * * * *"
@@ -17,7 +23,7 @@ concurrency:
 jobs:
   descoberta:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
 
     steps:
       - name: Baixar projeto
@@ -51,12 +57,23 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python main.py ia
 
+      - name: Preparar e publicar clipes aprovados
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          AUTO_PUBLISH: ${{ vars.AUTO_PUBLISH }}
+          PRIVATE_TEST: ${{ inputs.teste_privado }}
+          MAX_POSTS_PER_RUN: "1"
+          MIN_CLIP_VIEWS: "100"
+        run: python publisher.py
+
       - name: Salvar resultados
         run: |
           git config user.name "cortes-ai"
           git config user.email "cortes-ai@users.noreply.github.com"
 
-          git add dados/
+          git add dados/ posted.json historico.json
 
           if ! git diff --cached --quiet; then
             git commit -m "Atualiza transmissões e análises de IA"
