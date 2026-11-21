@@ -122,13 +122,22 @@ def executar_busca_clipes():
 
             for clipe in clipes:
                 todos_clipes.append({
+                    "id": clipe.get("id"),
+                    "broadcaster_id": clipe.get("broadcaster_id") or canal_id,
+                    "broadcaster_name": clipe.get("broadcaster_name") or canal,
+                    "game_id": clipe.get("game_id"),
                     "plataforma": "twitch",
                     "canal": canal,
                     "titulo": clipe.get("title"),
+                    "title": clipe.get("title"),
                     "url": clipe.get("url"),
                     "visualizacoes": clipe.get("view_count", 0),
+                    "view_count": clipe.get("view_count", 0),
                     "criado_em": clipe.get("created_at"),
-                    "duracao": clipe.get("duration")
+                    "created_at": clipe.get("created_at"),
+                    "duracao": clipe.get("duration"),
+                    "duration": clipe.get("duration"),
+                    "categoria": live.get("categoria", "")
                 })
 
         except Exception as erro:
