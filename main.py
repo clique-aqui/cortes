@@ -460,7 +460,7 @@ def analisar_com_ia():
         )
         return
 
-    from ia.gemini import analisar_clipe
+    from ia.gemini import analisar_clipe, QuotaDiariaAtingida
 
     melhores = carregar("melhores_clipes.json", [])
     antigas = carregar("analise_ia.json", [])
@@ -518,6 +518,10 @@ def analisar_com_ia():
         except Exception as erro:
             print("Erro ao analisar este clipe:", str(erro), flush=True)
             falhas_da_ia += 1
+
+            if isinstance(erro, QuotaDiariaAtingida):
+                print("Limite diário do Gemini atingido. Parando as análises de hoje.")
+                break
 
             if falhas_da_ia >= 2:
                 print("A IA falhou duas vezes seguidas. Tento de novo no próximo ciclo.")
