@@ -1,12 +1,44 @@
 import json
 import os
 from pathlib import Path
+from datetime import datetime, timezone
 
 from google import genai
 from google.genai import types
 
 
 API_KEY = os.getenv("GEMINI_API_KEY")
+
+LIMITE_DIARIO = int(os.getenv("GEMINI_DAILY_LIMIT") or 15)
+ARQUIVO_USO = Path(__file__).resolve().parent.parent / "dados" / "gemini_usage.json"
+
+
+class QuotaDiariaAtingida(RuntimeError):
+    """Limite diário de chamadas configurado para o projeto foi atingido."""
+
+
+def _registrar_solicitacao():
+    """Conta cada chamada real à API e impede ultrapassar o orçamento diário."""
+    hoje = datetime.now(timezone.utc).date().isoformat()
+    ARQUIVO_USO.parent.mkdir(exist_ok=True)
+    try:
+        uso = json.loads(ARQUIVO_USO.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        uso = {}
+
+    if uso.get("data") != hoje:
+        uso = {"data": hoje, "solicitacoes": 0}
+
+    if int(uso.get("solicitacoes", 0)) >= LIMITE_DIARIO:
+        raise QuotaDiariaAtingida(
+            f"Limite interno de {LIMITE_DIARIO} solicitações Gemini no dia atingido."
+        )
+
+    uso["solicitacoes"] = int(uso.get("solicitacoes", 0)) + 1
+    ARQUIVO_USO.write_text(
+        json.dumps(uso, ensure_ascii=False, indent=2),
+        encoding="utf-8"
+    )
 
 # Modelos em ordem de preferência. Se um sair do ar (erro 404) ou estourar a
 # cota grátis (erro 429), o sistema tenta o próximo da lista automaticamente.
@@ -138,6 +170,7 @@ def analisar_clipe(clipe, video=None):
 
     for modelo in MODELOS:
         try:
+            _registrar_solicitacao()
             resposta = cliente.models.generate_content(
                 model=modelo,
                 contents=conteudo,
@@ -147,8 +180,17 @@ def analisar_clipe(clipe, video=None):
             resultado["modelo"] = modelo
             return resultado
 
+        except QuotaDiariaAtingida:
+            raise
         except Exception as erro:
             ultimo_erro = erro
-            print(f"  Gemini ({modelo}) falhou: {str(erro)[:200]}", flush=True)
+            mensagem = str(erro)
+            print(f"  Gemini ({modelo}) falhou: {mensagem[:200]}", flush=True)
+
+            # Cota esgotada: não tenta outros modelos e não desperdiça mais chamadas.
+            if "429" in mensagem or "RESOURCE_EXHAUSTED" in mensagem:
+                raise QuotaDiariaAtingida(
+                    "O Google informou que a cota diária da API Gemini acabou."
+                ) from erro
 
     raise RuntimeError(f"Todos os modelos do Gemini falharam. Último erro: {ultimo_erro}")
