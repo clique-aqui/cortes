@@ -1,1 +1,86 @@
-[]
+[
+  {
+    "id": "FragileTardySquidAMPEnergyCherry-sWGYVnxAPuBi_y1v",
+    "broadcaster_id": "43683025",
+    "broadcaster_name": "ohnePixel",
+    "game_id": "1867279146",
+    "plataforma": "twitch",
+    "canal": "ohnePixel",
+    "titulo": "Ohne Bricked Up!!",
+    "title": "Ohne Bricked Up!!",
+    "url": "https://www.twitch.tv/ohnepixel/clip/FragileTardySquidAMPEnergyCherry-sWGYVnxAPuBi_y1v",
+    "visualizacoes": 4015,
+    "view_count": 4015,
+    "criado_em": "2026-11-20T21:41:29Z",
+    "created_at": "2026-11-20T21:41:29Z",
+    "duracao": 60,
+    "duration": 60,
+    "idioma": "en",
+    "categoria": "Grand Theft Auto VI",
+    "pontuacao": 93.31,
+    "analise_ia": {
+      "potencial": 65,
+      "categoria": "engraçado",
+      "conteudo_improprio": true,
+      "motivo": "O streamer reage de forma engraçada à cena de dança no clube do GTA, mas o conteúdo é sugestivo para o Shorts.",
+      "titulo": "Streamer gasta todo o dinheiro no clube do GTA",
+      "modelo": "gemini-3.6-flash"
+    }
+  },
+  {
+    "id": "CaringFunnySrirachaOSfrog-CPLxPX0JVwrIruwO",
+    "broadcaster_id": "43683025",
+    "broadcaster_name": "ohnePixel",
+    "game_id": "1867279146",
+    "plataforma": "twitch",
+    "canal": "ohnePixel",
+    "titulo": "RICH STREAMER ENJOYING!!",
+    "title": "RICH STREAMER ENJOYING!!",
+    "url": "https://www.twitch.tv/ohnepixel/clip/CaringFunnySrirachaOSfrog-CPLxPX0JVwrIruwO",
+    "visualizacoes": 3397,
+    "view_count": 3397,
+    "criado_em": "2026-11-20T20:00:29Z",
+    "created_at": "2026-11-20T20:00:29Z",
+    "duracao": 44.3,
+    "duration": 44.3,
+    "idioma": "en",
+    "categoria": "Grand Theft Auto VI",
+    "pontuacao": 84.91,
+    "analise_ia": {
+      "potencial": 40,
+      "categoria": "engraçado",
+      "conteudo_improprio": true,
+      "motivo": "O clipe contém cenas com ângulos focados e altamente sugestivos de strip-tease no jogo, sujeitos a restrição de idade no YouTube.",
+      "titulo": "Reagindo às dançarinas do GTA",
+      "modelo": "gemini-3.6-flash"
+    }
+  },
+  {
+    "id": "AlertHilariousFalconTF2John-10Ts4ml5K_wMro14",
+    "broadcaster_id": "43683025",
+    "broadcaster_name": "ohnePixel",
+    "game_id": "1867279146",
+    "plataforma": "twitch",
+    "canal": "ohnePixel",
+    "titulo": "jiggl physics enjoyer",
+    "title": "jiggl physics enjoyer",
+    "url": "https://www.twitch.tv/ohnepixel/clip/AlertHilariousFalconTF2John-10Ts4ml5K_wMro14",
+    "visualizacoes": 3245,
+    "view_count": 3245,
+    "criado_em": "2026-11-20T13:48:54Z",
+    "created_at": "2026-11-20T13:48:54Z",
+    "duracao": 18.2,
+    "duration": 18.2,
+    "idioma": "en",
+    "categoria": "Grand Theft Auto VI",
+    "pontuacao": 80.44,
+    "analise_ia": {
+      "potencial": 70,
+      "categoria": "reação",
+      "conteudo_improprio": false,
+      "motivo": "Reação divertida do streamer aos detalhes e físicas da cena de GTA 6.",
+      "titulo": "Reagindo as físicas impressionantes do novo GTA 6",
+      "modelo": "gemini-3.6-flash"
+    }
+  }
+]
