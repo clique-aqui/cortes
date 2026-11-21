@@ -68,7 +68,7 @@ jobs:
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
-          AUTO_PUBLISH: ${{ vars.AUTO_PUBLISH }}
+          AUTO_PUBLISH: "true"
           PRIVATE_TEST: ${{ inputs.teste_privado }}
           MAX_POSTS_PER_RUN: "1"
           MIN_CLIP_VIEWS: "100"
