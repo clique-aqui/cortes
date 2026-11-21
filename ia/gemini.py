@@ -1,6 +1,6 @@
-import os
 import json
-import time
+import os
+from pathlib import Path
 
 from google import genai
 from google.genai import types
@@ -8,110 +8,147 @@ from google.genai import types
 
 API_KEY = os.getenv("GEMINI_API_KEY")
 
+# Modelos em ordem de preferência. Se um sair do ar (erro 404) ou estourar a
+# cota grátis (erro 429), o sistema tenta o próximo da lista automaticamente.
+# O gemini-2.5-flash foi desligado pelo Google, por isso não está aqui.
+# Para trocar sem mexer no código: variável GEMINI_MODELS no GitHub.
+MODELOS = [
+    modelo.strip()
+    for modelo in (
+        os.getenv("GEMINI_MODELS")
+        or "gemini-3.8-flash,gemini-3.6-flash,gemini-3.5-flash,gemini-3.5-flash-lite"
+    ).split(",")
+    if modelo.strip()
+]
 
-def analisar_clipe(clipe):
+
+PROMPT = """
+Você é editor de cortes para YouTube Shorts, especialista em clipes de lives de games.
+
+{origem}
+
+Dados do clipe:
+- Criador: {canal}
+- Categoria: {categoria}
+- Título original: {titulo}
+- Visualizações: {visualizacoes}
+- Duração: {duracao} segundos
+
+Avalie se este momento tem potencial de viralizar em Shorts: engraçado, inesperado,
+emocionante, grande jogada ou reação forte, com começo e fim claros.
+Clipes parados, conversa sem graça, silêncio, tela de menu ou momento confuso
+recebem nota baixa. Não use as visualizações como prova de que o clipe é bom.
+
+Marque conteudo_improprio como true se houver nudez, conteúdo sexual explícito,
+discurso de ódio, violência real, automutilação ou qualquer coisa que o YouTube
+possa remover ou restringir por idade. Violência comum de videogame não é imprópria.
+Se não for possível saber, seja conservador (true).
+
+Escreva também um "titulo" em português do Brasil, com no máximo 60 caracteres,
+dizendo o que acontece no clipe ou o que o streamer está fazendo.
+Sem emojis, sem aspas, sem hashtags e sem o nome do canal.
+
+Responda somente com um JSON válido neste formato:
+
+{{
+  "potencial": 0,
+  "categoria": "engraçado, surpreendente, jogada, reação ou outro",
+  "conteudo_improprio": false,
+  "motivo": "explicação curta",
+  "titulo": "título do corte"
+}}
+
+potencial é um número de 0 a 100.
+"""
+
+
+def _validar(texto):
+    if not texto:
+        raise RuntimeError("O Gemini retornou uma resposta vazia.")
+
+    texto = texto.strip()
+
+    if texto.startswith("```"):
+        texto = texto.replace("```json", "").replace("```", "").strip()
+
+    resultado = json.loads(texto)
+
+    if not isinstance(resultado, dict):
+        raise ValueError("Resposta do Gemini não é um objeto JSON.")
+
+    potencial = resultado.get("potencial")
+
+    if not isinstance(potencial, (int, float)) or isinstance(potencial, bool):
+        raise ValueError("Potencial inválido retornado pelo Gemini.")
+
+    resultado["potencial"] = max(0, min(100, potencial))
+
+    # Se a IA esquecer de responder, tratamos como impróprio (mais seguro).
+    resultado["conteudo_improprio"] = resultado.get("conteudo_improprio") is not False
+
+    titulo = str(resultado.get("titulo") or "").strip().strip('"“”\'')
+    resultado["titulo"] = titulo.splitlines()[0][:60] if titulo else ""
+
+    return resultado
+
+
+def analisar_clipe(clipe, video=None):
+    """Analisa o clipe. Com `video`, o Gemini assiste e escuta o vídeo de verdade."""
 
     if not API_KEY:
         raise RuntimeError("GEMINI_API_KEY não configurada.")
 
     cliente = genai.Client(
         api_key=API_KEY,
-        http_options=types.HttpOptions(
-            timeout=120000
-        )
+        http_options=types.HttpOptions(timeout=120000)
     )
 
-    prompt = f"""
-Você é um especialista em análise de clipes de streaming.
+    if video:
+        origem = "Assista e escute o vídeo anexado antes de avaliar."
+    else:
+        origem = "Você só tem os dados abaixo. Não invente informações sobre imagem ou áudio."
 
-Analise os dados abaixo:
+    prompt = PROMPT.format(
+        origem=origem,
+        canal=clipe.get("canal"),
+        categoria=clipe.get("categoria") or "não informada",
+        titulo=clipe.get("titulo"),
+        visualizacoes=clipe.get("visualizacoes"),
+        duracao=clipe.get("duracao"),
+    )
 
-Criador: {clipe.get("canal")}
-Título: {clipe.get("titulo")}
-Visualizações: {clipe.get("visualizacoes")}
-Duração: {clipe.get("duracao")} segundos.
+    conteudo = []
 
-Avalie somente o título e os dados fornecidos.
-Não invente informações sobre imagens ou áudio.
-Não considere popularidade como prova de que o vídeo é engraçado.
+    if video:
+        conteudo.append(
+            types.Part.from_bytes(
+                data=Path(video).read_bytes(),
+                mime_type="video/mp4"
+            )
+        )
 
-Retorne somente um JSON válido neste formato:
+    conteudo.append(prompt)
 
-{{
-    "potencial": 0,
-    "categoria": "engraçado, surpreendente, gameplay ou outro",
-    "conteudo_improprio": false,
-    "motivo": "explicação curta"
-}}
+    config = types.GenerateContentConfig(
+        response_mime_type="application/json",
+        temperature=0.3
+    )
 
-Regras:
-- potencial deve ser um número de 0 a 100.
-- conteudo_improprio deve ser true ou false.
-- Considere títulos com conteúdo sexual explícito,
-  discurso de ódio ou violência extrema como impróprios.
-- Se não houver informação suficiente, seja conservador.
-"""
+    ultimo_erro = None
 
-    ultima_excecao = None
-
-    for tentativa in range(1, 4):
+    for modelo in MODELOS:
         try:
             resposta = cliente.models.generate_content(
-                model="gemini-3.8-flash",
-                contents=prompt
+                model=modelo,
+                contents=conteudo,
+                config=config
             )
-
-            if not resposta.text:
-                raise RuntimeError("O Gemini retornou uma resposta vazia.")
-
-            texto = resposta.text.strip()
-
-            if texto.startswith("```"):
-                texto = texto.replace("```json", "")
-                texto = texto.replace("```", "").strip()
-
-            resultado = json.loads(texto)
-
-            if not isinstance(resultado, dict):
-                raise ValueError("Resposta do Gemini não é um objeto JSON.")
-
-            potencial = resultado.get("potencial")
-
-            if not isinstance(potencial, (int, float)):
-                raise ValueError("Potencial inválido retornado pelo Gemini.")
-
-            resultado["potencial"] = max(0, min(100, potencial))
-
+            resultado = _validar(resposta.text)
+            resultado["modelo"] = modelo
             return resultado
 
         except Exception as erro:
-            ultima_excecao = erro
-            mensagem = str(erro).lower()
+            ultimo_erro = erro
+            print(f"  Gemini ({modelo}) falhou: {str(erro)[:200]}", flush=True)
 
-            erro_temporario = any(
-                termo in mensagem
-                for termo in (
-                    "504",
-                    "deadline_exceeded",
-                    "deadline expired",
-                    "503",
-                    "service unavailable",
-                    "429",
-                    "resource_exhausted",
-                    "timeout",
-                    "timed out"
-                )
-            )
-
-            if not erro_temporario or tentativa == 3:
-                raise
-
-            espera = tentativa * 10
-            print(
-                f"Gemini demorou ou está temporariamente indisponível. "
-                f"Tentativa {tentativa}/3 falhou. "
-                f"Nova tentativa em {espera} segundos..."
-            )
-            time.sleep(espera)
-
-    raise RuntimeError(f"Falha ao analisar clipe: {ultima_excecao}")
+    raise RuntimeError(f"Todos os modelos do Gemini falharam. Último erro: {ultimo_erro}")
