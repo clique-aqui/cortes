@@ -34,6 +34,11 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Instalar FFmpeg e fontes
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+
       - name: Instalar bibliotecas
         run: pip install -r requirements.txt
 
