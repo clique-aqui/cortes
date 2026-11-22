@@ -250,5 +250,61 @@
       "titulo": "Streamer recebe doação de 10 mil dólares ao vivo",
       "modelo": "gemini-3.6-flash"
     }
+  },
+  {
+    "id": "HeadstrongMiniatureMeerkatChefFrank-nbtWhXGIzTSMRThf",
+    "broadcaster_id": "40934651",
+    "broadcaster_name": "Ludwig",
+    "game_id": "1867279146",
+    "plataforma": "twitch",
+    "canal": "Ludwig",
+    "titulo": "accumulating insurance fraud",
+    "title": "accumulating insurance fraud",
+    "url": "https://www.twitch.tv/ludwig/clip/HeadstrongMiniatureMeerkatChefFrank-nbtWhXGIzTSMRThf",
+    "visualizacoes": 2620,
+    "view_count": 2620,
+    "criado_em": "2026-11-21T22:12:20Z",
+    "created_at": "2026-11-21T22:12:20Z",
+    "duracao": 60,
+    "duration": 60,
+    "idioma": "en",
+    "categoria": "Grand Theft Auto VI",
+    "pontuacao": 97.86,
+    "analise_ia": {
+      "potencial": 90,
+      "categoria": "engraçado",
+      "conteudo_improprio": false,
+      "motivo": "A IA do jogo entra em colapso total em um cruzamento, gerando um engavetamento caótico e hilariante.",
+      "titulo": "A IA do jogo causou o maior engavetamento de todos",
+      "modelo": "gemini-3.6-flash"
+    }
+  },
+  {
+    "id": "BloodyOilyWasabiVoteNay-iA3QTvyzrlB0a4qv",
+    "broadcaster_id": "71092938",
+    "broadcaster_name": "xQc",
+    "game_id": "1867279146",
+    "plataforma": "twitch",
+    "canal": "xQc",
+    "titulo": "13 years moment LOL",
+    "title": "13 years moment LOL",
+    "url": "https://www.twitch.tv/xqc/clip/BloodyOilyWasabiVoteNay-iA3QTvyzrlB0a4qv",
+    "visualizacoes": 2216,
+    "view_count": 2216,
+    "criado_em": "2026-11-21T06:20:18Z",
+    "created_at": "2026-11-21T06:20:18Z",
+    "duracao": 11.9,
+    "duration": 11.9,
+    "idioma": "en",
+    "categoria": "Grand Theft Auto VI",
+    "pontuacao": 78.54,
+    "analise_ia": {
+      "potencial": 25,
+      "categoria": "outro",
+      "conteudo_improprio": false,
+      "motivo": "O clipe mostra apenas uma cena simples de tiroteio no jogo sem reação ou comentário marcante do streamer.",
+      "titulo": "Lucia troca tiros no quintal para proteger a aliada",
+      "modelo": "gemini-3.6-flash"
+    }
   }
 ]
