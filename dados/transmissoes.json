@@ -1,18 +1,6 @@
 [
   {
     "plataforma": "twitch",
-    "canal": "IlloJuan",
-    "canal_id": "90075649",
-    "titulo": "DOMINGOS DOMÍNGUEZ 🔥 DÍA 4/450 DE JUEGO 🚔 RUSHEADÓN 🚨 - Grand Theft Auto VI #4",
-    "categoria": "Grand Theft Auto VI",
-    "game_id": "1867279146",
-    "idioma": "es",
-    "espectadores": 81061,
-    "inicio": "2026-11-22T16:38:44Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_illojuan-{width}x{height}.jpg"
-  },
-  {
-    "plataforma": "twitch",
     "canal": "caseoh_",
     "canal_id": "267160288",
     "titulo": "🟨LOSING MY MIND🟨",
@@ -31,7 +19,7 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "en",
-    "espectadores": 38488,
+    "espectadores": 38168,
     "inicio": "2026-11-22T18:35:16Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_zackrawrr-{width}x{height}.jpg"
   },
@@ -43,7 +31,7 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "it",
-    "espectadores": 34721,
+    "espectadores": 34073,
     "inicio": "2026-11-22T19:07:42Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_tumblurr-{width}x{height}.jpg"
   },
@@ -55,7 +43,7 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "en",
-    "espectadores": 32220,
+    "espectadores": 32847,
     "inicio": "2026-11-22T19:29:12Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_xqc-{width}x{height}.jpg"
   },
@@ -67,7 +55,7 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "en",
-    "espectadores": 26929,
+    "espectadores": 26988,
     "inicio": "2026-11-22T19:03:35Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_hasanabi-{width}x{height}.jpg"
   },
@@ -79,7 +67,7 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "en",
-    "espectadores": 21318,
+    "espectadores": 22601,
     "inicio": "2026-11-22T23:11:57Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_vanillamace-{width}x{height}.jpg"
   },
@@ -91,7 +79,7 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "pt",
-    "espectadores": 16392,
+    "espectadores": 16316,
     "inicio": "2026-11-22T19:30:48Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_cellbit-{width}x{height}.jpg"
   },
@@ -103,7 +91,7 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "ru",
-    "espectadores": 11858,
+    "espectadores": 11821,
     "inicio": "2026-11-22T11:26:27Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_bratishkinoff-{width}x{height}.jpg"
   },
@@ -115,7 +103,7 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "en",
-    "espectadores": 10867,
+    "espectadores": 9469,
     "inicio": "2026-11-21T18:32:39Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_ludwig-{width}x{height}.jpg"
   },
@@ -127,7 +115,7 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "de",
-    "espectadores": 7677,
+    "espectadores": 7844,
     "inicio": "2026-11-22T13:05:09Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_xrohat-{width}x{height}.jpg"
   },
@@ -163,7 +151,7 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "fr",
-    "espectadores": 6648,
+    "espectadores": 6610,
     "inicio": "2026-11-22T13:56:57Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_kamet0-{width}x{height}.jpg"
   },
@@ -175,7 +163,7 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "en",
-    "espectadores": 5836,
+    "espectadores": 5860,
     "inicio": "2026-11-22T20:48:22Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_agent00-{width}x{height}.jpg"
   },
@@ -187,7 +175,7 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "es",
-    "espectadores": 5352,
+    "espectadores": 5606,
     "inicio": "2026-11-22T22:38:27Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_aldo_geo-{width}x{height}.jpg"
   },
@@ -199,7 +187,7 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "en",
-    "espectadores": 5264,
+    "espectadores": 5111,
     "inicio": "2026-11-22T20:50:34Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_flight23white-{width}x{height}.jpg"
   },
@@ -211,33 +199,9 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "fr",
-    "espectadores": 4934,
+    "espectadores": 4950,
     "inicio": "2026-11-22T19:54:44Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_wankilstudio-{width}x{height}.jpg"
-  },
-  {
-    "plataforma": "twitch",
-    "canal": "Squeex",
-    "canal_id": "35958947",
-    "titulo": "my thoughts on gta are....",
-    "categoria": "Grand Theft Auto VI",
-    "game_id": "1867279146",
-    "idioma": "en",
-    "espectadores": 4779,
-    "inicio": "2026-11-22T20:30:25Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_squeex-{width}x{height}.jpg"
-  },
-  {
-    "plataforma": "twitch",
-    "canal": "LVNDMARK",
-    "canal_id": "427632467",
-    "titulo": "[DROPS] GTA 6 IS HERE | !STARFORGE !MONSTER | LVNDMARK_tv On Socials @starforgesystems",
-    "categoria": "Grand Theft Auto VI",
-    "game_id": "1867279146",
-    "idioma": "en",
-    "espectadores": 4560,
-    "inicio": "2026-11-22T21:52:32Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_lvndmark-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
@@ -247,21 +211,9 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "es",
-    "espectadores": 4349,
+    "espectadores": 4950,
     "inicio": "2026-11-23T00:58:57Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_crystalmolly-{width}x{height}.jpg"
-  },
-  {
-    "plataforma": "twitch",
-    "canal": "moistcr1tikal",
-    "canal_id": "132230344",
-    "titulo": "Gta 6",
-    "categoria": "Grand Theft Auto VI",
-    "game_id": "1867279146",
-    "idioma": "en",
-    "espectadores": 4331,
-    "inicio": "2026-11-23T01:22:37Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_moistcr1tikal-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
@@ -271,7 +223,7 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "pt",
-    "espectadores": 4233,
+    "espectadores": 4312,
     "inicio": "2026-11-23T00:27:28Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_samiraclose-{width}x{height}.jpg"
   },
@@ -283,21 +235,9 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "en",
-    "espectadores": 3974,
+    "espectadores": 4069,
     "inicio": "2026-11-22T19:50:18Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_stormfall33-{width}x{height}.jpg"
-  },
-  {
-    "plataforma": "twitch",
-    "canal": "嬌兔",
-    "canal_id": "15027034",
-    "titulo": "早餐台",
-    "categoria": "Grand Theft Auto VI",
-    "game_id": "1867279146",
-    "idioma": "zh",
-    "espectadores": 3889,
-    "inicio": "2026-11-22T17:20:09Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_zrush-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
@@ -307,9 +247,57 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "en",
-    "espectadores": 3647,
+    "espectadores": 4064,
     "inicio": "2026-11-23T00:50:18Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_gingy-{width}x{height}.jpg"
+  },
+  {
+    "plataforma": "twitch",
+    "canal": "嬌兔",
+    "canal_id": "15027034",
+    "titulo": "早餐台",
+    "categoria": "Grand Theft Auto VI",
+    "game_id": "1867279146",
+    "idioma": "zh",
+    "espectadores": 3938,
+    "inicio": "2026-11-22T17:20:09Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_zrush-{width}x{height}.jpg"
+  },
+  {
+    "plataforma": "twitch",
+    "canal": "LVNDMARK",
+    "canal_id": "427632467",
+    "titulo": "[DROPS] GTA 6 IS HERE | !STARFORGE !MONSTER | LVNDMARK_tv On Socials @starforgesystems",
+    "categoria": "Grand Theft Auto VI",
+    "game_id": "1867279146",
+    "idioma": "en",
+    "espectadores": 3885,
+    "inicio": "2026-11-22T21:52:32Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_lvndmark-{width}x{height}.jpg"
+  },
+  {
+    "plataforma": "twitch",
+    "canal": "Squeex",
+    "canal_id": "35958947",
+    "titulo": "my thoughts on gta are....",
+    "categoria": "Grand Theft Auto VI",
+    "game_id": "1867279146",
+    "idioma": "en",
+    "espectadores": 3771,
+    "inicio": "2026-11-22T20:30:25Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_squeex-{width}x{height}.jpg"
+  },
+  {
+    "plataforma": "twitch",
+    "canal": "moistcr1tikal",
+    "canal_id": "132230344",
+    "titulo": "Gta 6",
+    "categoria": "Grand Theft Auto VI",
+    "game_id": "1867279146",
+    "idioma": "en",
+    "espectadores": 3619,
+    "inicio": "2026-11-23T01:22:37Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_moistcr1tikal-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
@@ -319,7 +307,7 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "en",
-    "espectadores": 3577,
+    "espectadores": 3599,
     "inicio": "2026-11-22T16:14:06Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_distortion2-{width}x{height}.jpg"
   },
@@ -331,7 +319,7 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "ru",
-    "espectadores": 3560,
+    "espectadores": 3576,
     "inicio": "2026-11-22T20:18:28Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_voodoosh-{width}x{height}.jpg"
   },
@@ -349,27 +337,27 @@
   },
   {
     "plataforma": "twitch",
-    "canal": "PENTA",
-    "canal_id": "84316241",
-    "titulo": "🌴[ DROPS ON ]🌴special needs war vet and his Spanish care taker🌴 SPOILERS OR HELP = BAN (unless asked for)🌴",
-    "categoria": "Grand Theft Auto VI",
-    "game_id": "1867279146",
-    "idioma": "en",
-    "espectadores": 3324,
-    "inicio": "2026-11-22T22:10:16Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_penta-{width}x{height}.jpg"
-  },
-  {
-    "plataforma": "twitch",
     "canal": "nooreax",
     "canal_id": "172312401",
     "titulo": "🚨 Urutox Nachtschicht 🚨 GTA VI ~70% 🚨 2,5 MONATE 24/7 LIVE 🚨 TAG 45 🚨 NOTY GmbH WG mit @DIMEAX @NORMAN @URUTOX !pmm | Werbung",
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "de",
-    "espectadores": 3294,
+    "espectadores": 3312,
     "inicio": "2026-11-21T06:40:50Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_nooreax-{width}x{height}.jpg"
+  },
+  {
+    "plataforma": "twitch",
+    "canal": "PENTA",
+    "canal_id": "84316241",
+    "titulo": "🌴[ DROPS ON ]🌴special needs war vet and his Spanish care taker🌴 SPOILERS OR HELP = BAN (unless asked for)🌴",
+    "categoria": "Grand Theft Auto VI",
+    "game_id": "1867279146",
+    "idioma": "en",
+    "espectadores": 3304,
+    "inicio": "2026-11-22T22:10:16Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_penta-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
@@ -379,7 +367,7 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "en",
-    "espectadores": 2759,
+    "espectadores": 2784,
     "inicio": "2026-11-22T21:32:25Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_officermesser-{width}x{height}.jpg"
   },
@@ -391,9 +379,21 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "pt",
-    "espectadores": 2594,
+    "espectadores": 2489,
     "inicio": "2026-11-23T01:13:12Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_hiltonerika-{width}x{height}.jpg"
+  },
+  {
+    "plataforma": "twitch",
+    "canal": "Camy",
+    "canal_id": "86016923",
+    "titulo": "🟨*24/7* GTA 6 MARATHON🟨 🎁GIVING AWAY COPIES ALL DAY🎁 | DAY 3 | 53 HOURS IN!!",
+    "categoria": "Grand Theft Auto VI",
+    "game_id": "1867279146",
+    "idioma": "en",
+    "espectadores": 2426,
+    "inicio": "2026-11-22T18:35:09Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_camy-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
@@ -403,7 +403,7 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "it",
-    "espectadores": 2425,
+    "espectadores": 2351,
     "inicio": "2026-11-22T18:31:28Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_therealmarzaa-{width}x{height}.jpg"
   },
@@ -415,21 +415,9 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "en",
-    "espectadores": 2302,
+    "espectadores": 2258,
     "inicio": "2026-11-22T14:53:46Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_dasmehdi-{width}x{height}.jpg"
-  },
-  {
-    "plataforma": "twitch",
-    "canal": "Camy",
-    "canal_id": "86016923",
-    "titulo": "🟨*24/7* GTA 6 MARATHON🟨 🎁GIVING AWAY COPIES ALL DAY🎁 | DAY 3 | 53 HOURS IN!!",
-    "categoria": "Grand Theft Auto VI",
-    "game_id": "1867279146",
-    "idioma": "en",
-    "espectadores": 2220,
-    "inicio": "2026-11-22T18:35:09Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_camy-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
@@ -439,7 +427,7 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "pt",
-    "espectadores": 2193,
+    "espectadores": 2214,
     "inicio": "2026-11-22T22:28:52Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_tioorochitwitch-{width}x{height}.jpg"
   },
@@ -454,18 +442,6 @@
     "espectadores": 2169,
     "inicio": "2026-11-22T19:48:33Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_mckytv-{width}x{height}.jpg"
-  },
-  {
-    "plataforma": "twitch",
-    "canal": "MrDzinold",
-    "canal_id": "85039743",
-    "titulo": "🌊🌴☀️ DAY4 GTA:VI NOWY ROZDZIAŁ W VICECITY [60FPS]🌊🌴☀️ || !STRONA",
-    "categoria": "Grand Theft Auto VI",
-    "game_id": "1867279146",
-    "idioma": "pl",
-    "espectadores": 2152,
-    "inicio": "2026-11-22T12:57:42Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_mrdzinold-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
@@ -511,9 +487,21 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "en",
-    "espectadores": 2096,
+    "espectadores": 2111,
     "inicio": "2026-11-22T20:45:53Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_chiblee-{width}x{height}.jpg"
+  },
+  {
+    "plataforma": "twitch",
+    "canal": "AgenteMaxo",
+    "canal_id": "210485458",
+    "titulo": "🔴 GTA 6 CAPITULO #5 🔴 60 FPS (frame generation) !60fps",
+    "categoria": "Grand Theft Auto VI",
+    "game_id": "1867279146",
+    "idioma": "es",
+    "espectadores": 2082,
+    "inicio": "2026-11-22T19:25:21Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_agentemaxo-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
@@ -529,39 +517,39 @@
   },
   {
     "plataforma": "twitch",
-    "canal": "thimagroo",
-    "canal_id": "105750155",
-    "titulo": "🏝️ JOGANDO GTA VI 🏝️ JOGO ZERADO |❗PIX ❗️DC",
-    "categoria": "Grand Theft Auto VI",
-    "game_id": "1867279146",
-    "idioma": "pt",
-    "espectadores": 2060,
-    "inicio": "2026-11-23T01:20:22Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_thimagroo-{width}x{height}.jpg"
-  },
-  {
-    "plataforma": "twitch",
     "canal": "TeeGrizzley",
     "canal_id": "431882702",
     "titulo": "CAN'T MELT THE FROST!!!!!!",
     "categoria": "Grand Theft Auto V",
     "game_id": "32982",
     "idioma": "en",
-    "espectadores": 1975,
+    "espectadores": 2067,
     "inicio": "2026-11-23T00:34:50Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_teegrizzley-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
-    "canal": "TheDarkness",
-    "canal_id": "52614128",
-    "titulo": "AO VIVO DOMINGO! - DLSS 5 - 4K ULTRA SETTINGS 120 fps - DROPS ATIVADOS",
+    "canal": "thimagroo",
+    "canal_id": "105750155",
+    "titulo": "🏝️ JOGANDO GTA VI 🏝️ JOGO ZERADO |❗PIX ❗️DC",
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "pt",
-    "espectadores": 1881,
-    "inicio": "2026-11-22T22:08:10Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_thedarkness-{width}x{height}.jpg"
+    "espectadores": 2051,
+    "inicio": "2026-11-23T01:20:22Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_thimagroo-{width}x{height}.jpg"
+  },
+  {
+    "plataforma": "twitch",
+    "canal": "playstationganeing",
+    "canal_id": "1405108850",
+    "titulo": "GTA 6 gameplay",
+    "categoria": "Grand Theft Auto VI",
+    "game_id": "1867279146",
+    "idioma": "en",
+    "espectadores": 1938,
+    "inicio": "2026-11-23T01:44:23Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_playstationganeing-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
@@ -577,15 +565,51 @@
   },
   {
     "plataforma": "twitch",
+    "canal": "thetremba",
+    "canal_id": "41894099",
+    "titulo": "СТРІМ ЙДЕ, ПОКИ НЕ ПРОЙДУ GTA VI 🌴 ДЕНЬ 5 🚓  !збір",
+    "categoria": "Grand Theft Auto VI",
+    "game_id": "1867279146",
+    "idioma": "uk",
+    "espectadores": 1847,
+    "inicio": "2026-11-22T16:35:09Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_thetremba-{width}x{height}.jpg"
+  },
+  {
+    "plataforma": "twitch",
     "canal": "Kaydop",
     "canal_id": "63675549",
     "titulo": "RANKED | SUB=PAS DE PUB| !Holy | #ad Collaboration commerciale",
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "fr",
-    "espectadores": 1850,
+    "espectadores": 1838,
     "inicio": "2026-11-22T22:08:16Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_kaydop-{width}x{height}.jpg"
+  },
+  {
+    "plataforma": "twitch",
+    "canal": "TheDarkness",
+    "canal_id": "52614128",
+    "titulo": "AO VIVO DOMINGO! - DLSS 5 - 4K ULTRA SETTINGS 120 fps - DROPS ATIVADOS",
+    "categoria": "Grand Theft Auto VI",
+    "game_id": "1867279146",
+    "idioma": "pt",
+    "espectadores": 1815,
+    "inicio": "2026-11-22T22:08:10Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_thedarkness-{width}x{height}.jpg"
+  },
+  {
+    "plataforma": "twitch",
+    "canal": "StreamDatabase",
+    "canal_id": "757102582",
+    "titulo": "💜 BADGE = 60 MINS 💜 ACTIVE: !BONES !GNOME !GTA6 !GTA6FREE !DOOM !GALLICA !PAY !WOW !ER !PKMN 💜 SOON: !QUEST !SANTA 💜",
+    "categoria": "Grand Theft Auto VI",
+    "game_id": "1867279146",
+    "idioma": "en",
+    "espectadores": 1814,
+    "inicio": "2026-11-21T18:00:09Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_streamdatabase-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
@@ -601,39 +625,15 @@
   },
   {
     "plataforma": "twitch",
-    "canal": "StreamDatabase",
-    "canal_id": "757102582",
-    "titulo": "💜 BADGE = 60 MINS 💜 ACTIVE: !BONES !GNOME !GTA6 !GTA6FREE !DOOM !GALLICA !PAY !WOW !ER !PKMN 💜 SOON: !QUEST !SANTA 💜",
-    "categoria": "Grand Theft Auto VI",
-    "game_id": "1867279146",
-    "idioma": "en",
-    "espectadores": 1752,
-    "inicio": "2026-11-21T18:00:09Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_streamdatabase-{width}x{height}.jpg"
-  },
-  {
-    "plataforma": "twitch",
     "canal": "Mictia00",
     "canal_id": "116706369",
     "titulo": "CONTIUAMOS LA HISTORIA🌴 GTA VI🌴 DIA 4 🌴🎁 !SORTEO x2 PLAY V + GTA VI 🎁 SUB = NUEVOS EMOTES",
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "es",
-    "espectadores": 1750,
+    "espectadores": 1733,
     "inicio": "2026-11-22T20:50:41Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_mictia00-{width}x{height}.jpg"
-  },
-  {
-    "plataforma": "twitch",
-    "canal": "thetremba",
-    "canal_id": "41894099",
-    "titulo": "СТРІМ ЙДЕ, ПОКИ НЕ ПРОЙДУ GTA VI 🌴 ДЕНЬ 5 🚓  !збір",
-    "categoria": "Grand Theft Auto VI",
-    "game_id": "1867279146",
-    "idioma": "uk",
-    "espectadores": 1654,
-    "inicio": "2026-11-22T16:35:09Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_thetremba-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
@@ -649,18 +649,6 @@
   },
   {
     "plataforma": "twitch",
-    "canal": "luality",
-    "canal_id": "139745227",
-    "titulo": "GTA VI IS GAME OF ALL TIME 💜 OH WE VICE CITY",
-    "categoria": "Grand Theft Auto VI",
-    "game_id": "1867279146",
-    "idioma": "en",
-    "espectadores": 1608,
-    "inicio": "2026-11-22T17:23:59Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_luality-{width}x{height}.jpg"
-  },
-  {
-    "plataforma": "twitch",
     "canal": "FilipeRaaamos",
     "canal_id": "99584389",
     "titulo": "GTA 6 (#4)",
@@ -670,6 +658,18 @@
     "espectadores": 1586,
     "inicio": "2026-11-22T22:38:09Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_filiperaaamos-{width}x{height}.jpg"
+  },
+  {
+    "plataforma": "twitch",
+    "canal": "luality",
+    "canal_id": "139745227",
+    "titulo": "GTA VI IS GAME OF ALL TIME 💜 OH WE VICE CITY",
+    "categoria": "Grand Theft Auto VI",
+    "game_id": "1867279146",
+    "idioma": "en",
+    "espectadores": 1563,
+    "inicio": "2026-11-22T17:23:59Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_luality-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
@@ -697,13 +697,37 @@
   },
   {
     "plataforma": "twitch",
+    "canal": "Elquaria",
+    "canal_id": "449455341",
+    "titulo": "💫[43% Story] BEZIEHUNGEN PFLEGEN IN GTA  💫 LATENIGHT STREAM!insta !yt",
+    "categoria": "Grand Theft Auto VI",
+    "game_id": "1867279146",
+    "idioma": "de",
+    "espectadores": 1531,
+    "inicio": "2026-11-22T21:48:32Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_elquaria-{width}x{height}.jpg"
+  },
+  {
+    "plataforma": "twitch",
+    "canal": "Gladd",
+    "canal_id": "81628627",
+    "titulo": "[!DROPS][PS5 PRO] Being A Total Menace | !24/7 !Socials !Clips",
+    "categoria": "Grand Theft Auto VI",
+    "game_id": "1867279146",
+    "idioma": "en",
+    "espectadores": 1519,
+    "inicio": "2026-11-22T19:20:28Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_gladd-{width}x{height}.jpg"
+  },
+  {
+    "plataforma": "twitch",
     "canal": "Elina",
     "canal_id": "174141858",
     "titulo": "✅DROPS + Just Started Chapter 2 in GTA 6! [60fps] - Hunting Easter Eggs - !youtube !instagram",
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "en",
-    "espectadores": 1523,
+    "espectadores": 1512,
     "inicio": "2026-11-22T19:39:08Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_elina-{width}x{height}.jpg"
   },
@@ -721,27 +745,15 @@
   },
   {
     "plataforma": "twitch",
-    "canal": "Elquaria",
-    "canal_id": "449455341",
-    "titulo": "💫[43% Story] BEZIEHUNGEN PFLEGEN IN GTA  💫 LATENIGHT STREAM!insta !yt",
-    "categoria": "Grand Theft Auto VI",
-    "game_id": "1867279146",
-    "idioma": "de",
-    "espectadores": 1502,
-    "inicio": "2026-11-22T21:48:32Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_elquaria-{width}x{height}.jpg"
-  },
-  {
-    "plataforma": "twitch",
-    "canal": "Gladd",
-    "canal_id": "81628627",
-    "titulo": "[!DROPS][PS5 PRO] Being A Total Menace | !24/7 !Socials !Clips",
+    "canal": "CRREAM",
+    "canal_id": "2261919",
+    "titulo": "I'm Hooked - No Jank Today o_o | !heist !Noir",
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "en",
-    "espectadores": 1479,
-    "inicio": "2026-11-22T19:20:28Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_gladd-{width}x{height}.jpg"
+    "espectadores": 1477,
+    "inicio": "2026-11-22T23:13:02Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_crream-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
@@ -751,7 +763,7 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "fr",
-    "espectadores": 1414,
+    "espectadores": 1418,
     "inicio": "2026-11-22T23:06:24Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_fantabobshow-{width}x{height}.jpg"
   },
@@ -763,21 +775,21 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "fr",
-    "espectadores": 1394,
+    "espectadores": 1384,
     "inicio": "2026-11-22T19:00:22Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_mehdoche-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
-    "canal": "DrLupo",
-    "canal_id": "29829912",
-    "titulo": "doing crimes in 60 fps",
+    "canal": "WHOPLOHOYPAREN",
+    "canal_id": "510794436",
+    "titulo": "GTA 6 87% 2K 60fps DLSS5 ФИНАЛ",
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
-    "idioma": "en",
-    "espectadores": 1386,
-    "inicio": "2026-11-22T16:16:54Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_drlupo-{width}x{height}.jpg"
+    "idioma": "ru",
+    "espectadores": 1355,
+    "inicio": "2026-11-23T01:35:15Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_whoplohoyparen-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
@@ -793,15 +805,39 @@
   },
   {
     "plataforma": "twitch",
-    "canal": "CRREAM",
-    "canal_id": "2261919",
-    "titulo": "I'm Hooked - No Jank Today o_o | !heist !Noir",
+    "canal": "wanessawolf",
+    "canal_id": "186268155",
+    "titulo": "DOMINGÃO DA DEPRESSÃO",
+    "categoria": "Grand Theft Auto VI",
+    "game_id": "1867279146",
+    "idioma": "pt",
+    "espectadores": 1328,
+    "inicio": "2026-11-23T00:11:17Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_wanessawolf-{width}x{height}.jpg"
+  },
+  {
+    "plataforma": "twitch",
+    "canal": "Marzzzzy",
+    "canal_id": "213104821",
+    "titulo": "[DROPS] GTA6 - Chapter 2 (Day 4) (PS5 PRO) Streamathon! ✨ | @marzzzzy !socials !badge",
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "en",
-    "espectadores": 1321,
-    "inicio": "2026-11-22T23:13:02Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_crream-{width}x{height}.jpg"
+    "espectadores": 1316,
+    "inicio": "2026-11-22T23:24:46Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_marzzzzy-{width}x{height}.jpg"
+  },
+  {
+    "plataforma": "twitch",
+    "canal": "DrLupo",
+    "canal_id": "29829912",
+    "titulo": "doing crimes in 60 fps",
+    "categoria": "Grand Theft Auto VI",
+    "game_id": "1867279146",
+    "idioma": "en",
+    "espectadores": 1311,
+    "inicio": "2026-11-22T16:16:54Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_drlupo-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
@@ -811,21 +847,9 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "sv",
-    "espectadores": 1291,
+    "espectadores": 1287,
     "inicio": "2026-11-22T16:00:59Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_perra-{width}x{height}.jpg"
-  },
-  {
-    "plataforma": "twitch",
-    "canal": "charborg",
-    "canal_id": "113269771",
-    "titulo": "Testing a thing I made: chat is the angel and devil on my shoulder",
-    "categoria": "Grand Theft Auto VI",
-    "game_id": "1867279146",
-    "idioma": "en",
-    "espectadores": 1291,
-    "inicio": "2026-11-23T00:20:18Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_charborg-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
@@ -835,21 +859,21 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "en",
-    "espectadores": 1281,
+    "espectadores": 1274,
     "inicio": "2026-11-22T19:50:48Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_tray-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
-    "canal": "wanessawolf",
-    "canal_id": "186268155",
-    "titulo": "DOMINGÃO DA DEPRESSÃO",
+    "canal": "charborg",
+    "canal_id": "113269771",
+    "titulo": "Testing a thing I made: chat is the angel and devil on my shoulder",
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
-    "idioma": "pt",
-    "espectadores": 1264,
-    "inicio": "2026-11-23T00:11:17Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_wanessawolf-{width}x{height}.jpg"
+    "idioma": "en",
+    "espectadores": 1258,
+    "inicio": "2026-11-23T00:20:18Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_charborg-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
@@ -859,7 +883,7 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "ru",
-    "espectadores": 1253,
+    "espectadores": 1248,
     "inicio": "2026-11-22T18:41:20Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_guit88man-{width}x{height}.jpg"
   },
@@ -871,7 +895,7 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "ru",
-    "espectadores": 1248,
+    "espectadores": 1233,
     "inicio": "2026-11-22T15:20:43Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_afoninje-{width}x{height}.jpg"
   },
@@ -883,21 +907,21 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "en",
-    "espectadores": 1247,
+    "espectadores": 1226,
     "inicio": "2026-11-22T19:07:58Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_burn-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
-    "canal": "Sykkuno",
-    "canal_id": "26154978",
-    "titulo": "chillin sunday",
+    "canal": "雨咩うさぎ",
+    "canal_id": "214658096",
+    "titulo": "11/23 ₍ᐢ.‸.ᐢ₎⑅｜給他愛六~!!! ｜努力拚自主訂閱中! @yumie0306 | !工商 !募資 !魔儲 !簽到 !VPN !布丁 |",
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
-    "idioma": "en",
-    "espectadores": 1204,
-    "inicio": "2026-11-22T19:00:21Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_sykkuno-{width}x{height}.jpg"
+    "idioma": "zh",
+    "espectadores": 1213,
+    "inicio": "2026-11-23T01:41:40Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_yumie0306-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
@@ -925,27 +949,27 @@
   },
   {
     "plataforma": "twitch",
-    "canal": "Marzzzzy",
-    "canal_id": "213104821",
-    "titulo": "[DROPS] GTA6 - Chapter 2 (Day 4) (PS5 PRO) Streamathon! ✨ | @marzzzzy !socials !badge",
+    "canal": "Sykkuno",
+    "canal_id": "26154978",
+    "titulo": "chillin sunday",
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "en",
-    "espectadores": 1183,
-    "inicio": "2026-11-22T23:24:46Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_marzzzzy-{width}x{height}.jpg"
+    "espectadores": 1184,
+    "inicio": "2026-11-22T19:00:21Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_sykkuno-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
-    "canal": "StrawberryTabby",
-    "canal_id": "562723403",
-    "titulo": "YOOO I FEEL BETTER | 🍑 !s ➜ link in bio ❤️  !throne",
-    "categoria": "Grand Theft Auto VI",
-    "game_id": "1867279146",
-    "idioma": "en",
-    "espectadores": 1181,
-    "inicio": "2026-11-22T21:16:42Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_strawberrytabby-{width}x{height}.jpg"
+    "canal": "MiiKeLMsT",
+    "canal_id": "53567674",
+    "titulo": "Pillan a Yeison y Lusia...🎧",
+    "categoria": "Grand Theft Auto V",
+    "game_id": "32982",
+    "idioma": "es",
+    "espectadores": 1141,
+    "inicio": "2026-11-22T22:28:47Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_miikelmst-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
@@ -961,15 +985,27 @@
   },
   {
     "plataforma": "twitch",
-    "canal": "SheefGG",
-    "canal_id": "133896185",
-    "titulo": "GTA VI DAY 4 (CLOSING IN ON THE ENDING) | !STARFORGE",
+    "canal": "WhatifJulia",
+    "canal_id": "98087706",
+    "titulo": "HEY MISTER | Ch. 1 • Day 2 ʕ•ᴥ•ʔ !goal !badges",
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "en",
-    "espectadores": 1125,
-    "inicio": "2026-11-22T17:55:48Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_sheefgg-{width}x{height}.jpg"
+    "espectadores": 1136,
+    "inicio": "2026-11-22T22:40:45Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_whatifjulia-{width}x{height}.jpg"
+  },
+  {
+    "plataforma": "twitch",
+    "canal": "StrawberryTabby",
+    "canal_id": "562723403",
+    "titulo": "YOOO I FEEL BETTER | 🍑 !s ➜ link in bio ❤️  !throne",
+    "categoria": "Grand Theft Auto VI",
+    "game_id": "1867279146",
+    "idioma": "en",
+    "espectadores": 1130,
+    "inicio": "2026-11-22T21:16:42Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_strawberrytabby-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
@@ -979,9 +1015,21 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "de",
-    "espectadores": 1105,
+    "espectadores": 1098,
     "inicio": "2026-11-22T13:46:24Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_anaaja-{width}x{height}.jpg"
+  },
+  {
+    "plataforma": "twitch",
+    "canal": "SheefGG",
+    "canal_id": "133896185",
+    "titulo": "GTA VI DAY 4 (CLOSING IN ON THE ENDING) | !STARFORGE",
+    "categoria": "Grand Theft Auto VI",
+    "game_id": "1867279146",
+    "idioma": "en",
+    "espectadores": 1097,
+    "inicio": "2026-11-22T17:55:48Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_sheefgg-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
@@ -991,21 +1039,9 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "pt",
-    "espectadores": 1095,
+    "espectadores": 1069,
     "inicio": "2026-11-22T19:00:16Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_godmota-{width}x{height}.jpg"
-  },
-  {
-    "plataforma": "twitch",
-    "canal": "WhatifJulia",
-    "canal_id": "98087706",
-    "titulo": "HEY MISTER | Ch. 1 • Day 2 ʕ•ᴥ•ʔ !goal !badges",
-    "categoria": "Grand Theft Auto VI",
-    "game_id": "1867279146",
-    "idioma": "en",
-    "espectadores": 1075,
-    "inicio": "2026-11-22T22:40:45Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_whatifjulia-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
@@ -1015,9 +1051,21 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "pt",
-    "espectadores": 1031,
+    "espectadores": 1040,
     "inicio": "2026-11-22T21:35:24Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_olkabone-{width}x{height}.jpg"
+  },
+  {
+    "plataforma": "twitch",
+    "canal": "NoahLunsi",
+    "canal_id": "1305299482",
+    "titulo": "RUN GTA JOUR 4 ( !discord !sub !don !rs )",
+    "categoria": "Grand Theft Auto VI",
+    "game_id": "1867279146",
+    "idioma": "fr",
+    "espectadores": 1011,
+    "inicio": "2026-11-22T22:55:55Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_noahlunsi-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
@@ -1033,13 +1081,25 @@
   },
   {
     "plataforma": "twitch",
+    "canal": "CursedFiber78",
+    "canal_id": "231053562",
+    "titulo": "🌴💎DIA 4 INCREIBLE GTA VI💎🌴💵DROPS GTA VI💵🌴🎁SORTEO 2 PLAYS🎁🌟GTA VI🌟💵HOY GTA VI💵💎🌟🚫SUB = NO ADS🚫REDES: @CursedFiber78",
+    "categoria": "Grand Theft Auto VI",
+    "game_id": "1867279146",
+    "idioma": "es",
+    "espectadores": 981,
+    "inicio": "2026-11-23T01:08:12Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_cursedfiber78-{width}x{height}.jpg"
+  },
+  {
+    "plataforma": "twitch",
     "canal": "Jill",
     "canal_id": "496942388",
     "titulo": "DROPS 🔴 GOTY",
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "en",
-    "espectadores": 975,
+    "espectadores": 980,
     "inicio": "2026-11-23T00:26:13Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_jill-{width}x{height}.jpg"
   },
@@ -1051,9 +1111,21 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "en",
-    "espectadores": 971,
+    "espectadores": 975,
     "inicio": "2026-11-22T19:25:39Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_formal-{width}x{height}.jpg"
+  },
+  {
+    "plataforma": "twitch",
+    "canal": "T10Nat",
+    "canal_id": "167124768",
+    "titulo": "🌴[DROPS] 🌴 SIDE MISSIONS. DIVING. NPC QUESTS. MY FIRST EVER GTA GAME | [Day 3]  👑",
+    "categoria": "Grand Theft Auto VI",
+    "game_id": "1867279146",
+    "idioma": "en",
+    "espectadores": 965,
+    "inicio": "2026-11-22T21:40:28Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_t10nat-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
@@ -1069,13 +1141,25 @@
   },
   {
     "plataforma": "twitch",
+    "canal": "Rodnoy",
+    "canal_id": "485471555",
+    "titulo": "Предать ради хайпа ✅ !gp !tg | Сюжет: 67%",
+    "categoria": "Grand Theft Auto VI",
+    "game_id": "1867279146",
+    "idioma": "ru",
+    "espectadores": 934,
+    "inicio": "2026-11-22T12:15:24Z",
+    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_rodnoy-{width}x{height}.jpg"
+  },
+  {
+    "plataforma": "twitch",
     "canal": "Luke",
     "canal_id": "560043473",
     "titulo": "🌴PLAYING GTA VI (30% THROUGH)🌴60FPS GAMEPLAY🌴 GOT A NEW CAT🌴NEW ADDITION TO THE FAMILY🌴IRL🌴 !discord !tip !tiktok !updates",
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "en",
-    "espectadores": 920,
+    "espectadores": 905,
     "inicio": "2026-11-22T18:17:47Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_luke-{width}x{height}.jpg"
   },
@@ -1087,21 +1171,9 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "fr",
-    "espectadores": 915,
+    "espectadores": 899,
     "inicio": "2026-11-22T19:54:44Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_laink-{width}x{height}.jpg"
-  },
-  {
-    "plataforma": "twitch",
-    "canal": "Rodnoy",
-    "canal_id": "485471555",
-    "titulo": "Предать ради хайпа ✅ !gp !tg | Сюжет: 67%",
-    "categoria": "Grand Theft Auto VI",
-    "game_id": "1867279146",
-    "idioma": "ru",
-    "espectadores": 912,
-    "inicio": "2026-11-22T12:15:24Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_rodnoy-{width}x{height}.jpg"
   },
   {
     "plataforma": "twitch",
@@ -1111,7 +1183,7 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "de",
-    "espectadores": 890,
+    "espectadores": 887,
     "inicio": "2026-11-22T21:30:32Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_fustler-{width}x{height}.jpg"
   },
@@ -1123,80 +1195,8 @@
     "categoria": "Grand Theft Auto VI",
     "game_id": "1867279146",
     "idioma": "en",
-    "espectadores": 870,
+    "espectadores": 854,
     "inicio": "2026-11-22T18:59:37Z",
     "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_robbaz-{width}x{height}.jpg"
-  },
-  {
-    "plataforma": "twitch",
-    "canal": "Samwitch",
-    "canal_id": "189152381",
-    "titulo": "I'm going sami miami mode and theres nothing you can do to stop me #hopecore #joymaxxing #crimetime #bigfootisrealandheatemyass",
-    "categoria": "Grand Theft Auto VI",
-    "game_id": "1867279146",
-    "idioma": "en",
-    "espectadores": 866,
-    "inicio": "2026-11-22T23:59:56Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_samwitch-{width}x{height}.jpg"
-  },
-  {
-    "plataforma": "twitch",
-    "canal": "Just_Japahef",
-    "canal_id": "165394505",
-    "titulo": "CODICI DI GTA GRATIS! (Basta guardare la LIVE) ✨ 5 SUB = RUOTA ✨ 60 FPS ✨",
-    "categoria": "Grand Theft Auto VI",
-    "game_id": "1867279146",
-    "idioma": "it",
-    "espectadores": 840,
-    "inicio": "2026-11-22T20:48:36Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_just_japahef-{width}x{height}.jpg"
-  },
-  {
-    "plataforma": "twitch",
-    "canal": "Just_Japahef",
-    "canal_id": "165394505",
-    "titulo": "CODICI DI GTA GRATIS! (Basta guardare la LIVE) ✨ 5 SUB = RUOTA ✨ 60 FPS ✨",
-    "categoria": "Grand Theft Auto VI",
-    "game_id": "1867279146",
-    "idioma": "it",
-    "espectadores": 840,
-    "inicio": "2026-11-22T20:48:36Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_just_japahef-{width}x{height}.jpg"
-  },
-  {
-    "plataforma": "twitch",
-    "canal": "LPMassive",
-    "canal_id": "40621899",
-    "titulo": "Lucia weiter verwöhnen! 10/10 Game! [PS5 PRO - 120FPS DLSS5]",
-    "categoria": "Grand Theft Auto VI",
-    "game_id": "1867279146",
-    "idioma": "de",
-    "espectadores": 816,
-    "inicio": "2026-11-22T17:00:14Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_lpmassive-{width}x{height}.jpg"
-  },
-  {
-    "plataforma": "twitch",
-    "canal": "Terracid",
-    "canal_id": "89873316",
-    "titulo": "GTA 6, on va enfin savoir ce qu'il y a sur le disque dur (des vidéos furrys)",
-    "categoria": "Grand Theft Auto VI",
-    "game_id": "1867279146",
-    "idioma": "fr",
-    "espectadores": 732,
-    "inicio": "2026-11-22T19:56:11Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_terracid-{width}x{height}.jpg"
-  },
-  {
-    "plataforma": "twitch",
-    "canal": "Terracid",
-    "canal_id": "89873316",
-    "titulo": "GTA 6, on va enfin savoir ce qu'il y a sur le disque dur (des vidéos furrys)",
-    "categoria": "Grand Theft Auto VI",
-    "game_id": "1867279146",
-    "idioma": "fr",
-    "espectadores": 732,
-    "inicio": "2026-11-22T19:56:11Z",
-    "thumbnail": "https://static-cdn.jtvnw.net/previews-ttv/live_user_terracid-{width}x{height}.jpg"
   }
 ]
