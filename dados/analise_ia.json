@@ -1286,5 +1286,61 @@
       "titulo": "Amigos zoam o jeito de namorar de um streamer",
       "modelo": "gemini-3.6-flash"
     }
+  },
+  {
+    "id": "PleasantDirtyWallabyDancingBanana-0knKCXLfB4Uw-FS0",
+    "broadcaster_id": "44424631",
+    "broadcaster_name": "NickEh30",
+    "game_id": "1867279146",
+    "plataforma": "twitch",
+    "canal": "NickEh30",
+    "titulo": "mayhem",
+    "title": "mayhem",
+    "url": "https://www.twitch.tv/nickeh30/clip/PleasantDirtyWallabyDancingBanana-0knKCXLfB4Uw-FS0",
+    "visualizacoes": 1648,
+    "view_count": 1648,
+    "criado_em": "2026-11-27T00:11:19Z",
+    "created_at": "2026-11-27T00:11:19Z",
+    "duracao": 30,
+    "duration": 30,
+    "idioma": "en",
+    "categoria": "Grand Theft Auto VI",
+    "pontuacao": 60.21,
+    "analise_ia": {
+      "potencial": 38,
+      "categoria": "jogada",
+      "conteudo_improprio": false,
+      "motivo": "Apenas uma cena comum de gameplay dirigindo um veículo blindado e explodindo uma viatura sem grande destaque.",
+      "titulo": "Explodindo viatura de policia com tanque no GTA",
+      "modelo": "gemini-3.8-flash"
+    }
+  },
+  {
+    "id": "CharmingPiercingJellyfishKeepo-exdtjnT646QfcTfA",
+    "broadcaster_id": "99899949",
+    "broadcaster_name": "bratishkinOFF",
+    "game_id": "1867279146",
+    "plataforma": "twitch",
+    "canal": "bratishkinOFF",
+    "titulo": "Переодевание 18+",
+    "title": "Переодевание 18+",
+    "url": "https://www.twitch.tv/bratishkinoff/clip/CharmingPiercingJellyfishKeepo-exdtjnT646QfcTfA",
+    "visualizacoes": 1187,
+    "view_count": 1187,
+    "criado_em": "2026-11-27T02:32:09Z",
+    "created_at": "2026-11-27T02:32:09Z",
+    "duracao": 23.7,
+    "duration": 23.7,
+    "idioma": "ru",
+    "categoria": "Grand Theft Auto VI",
+    "pontuacao": 56.06,
+    "analise_ia": {
+      "potencial": 15,
+      "categoria": "outro",
+      "conteudo_improprio": true,
+      "motivo": "O clipe consiste apenas em navegação por menus de roupas e apresenta nudez parcial no modelo da personagem.",
+      "titulo": "Personalizando o visual da personagem no jogo",
+      "modelo": "gemini-3.6-flash"
+    }
   }
 ]
