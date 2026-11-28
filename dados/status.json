@@ -1,14 +1,14 @@
 {
-  "ultima_busca": "2026-11-27T19:37:38.534180+00:00",
+  "ultima_busca": "2026-11-28T02:11:09.680321+00:00",
   "plataforma": "Twitch",
   "transmissoes_encontradas": 100,
   "situacao": "Busca concluída",
-  "espectadores_totais": 238976,
-  "ultima_analise_ia": "2026-11-27T19:38:33.983160+00:00",
-  "clipes_analisados_ia": 2,
+  "espectadores_totais": 158101,
+  "ultima_analise_ia": "2026-11-28T02:14:37.228648+00:00",
+  "clipes_analisados_ia": 3,
   "categorias": [
     "Grand Theft Auto VI",
     "Grand Theft Auto V"
   ],
-  "aprovados_na_fila": 1
+  "aprovados_na_fila": 2
 }
